@@ -97,7 +97,7 @@ def boundingBox(currentPointCloud, height):
 #Get feature 2: Vertical Slices
 
 
-#Get feature 3:
+#Get feature 3: planarity
 
 #Get feature 4: Average Height
 def objectAverageHeight(currentPointCloud):
