@@ -4,3 +4,4 @@ dependencies:
 - numpy=1.19.1
 - cython=0.29.25
 - pandas=1.2.4
+- open3d=0.11.2
