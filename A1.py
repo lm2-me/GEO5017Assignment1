@@ -5,6 +5,7 @@
 import pandas as pd
 import numpy as np
 import pyoctree as poct
+import open3d as o3d
 print("start program for importing files")
 
 import os
@@ -38,15 +39,34 @@ def importFiles():
     #print(d["pc385"])
     return d
 
+#visualize point cloud
+def visualizePC(pointCloudDirectory):
+    pc = currentPCfile(pointCloudDirectory)
+    o3d.visualization.draw_geometries([pc])
+
+#visualize point cloud
+def currentPCfile(pointCloudDirectory):
+    pc = "001"
+    filewd = os.getcwd()
+    folder = "{0}\{1}.xyz".format(filewd,pc)
+    print(folder)
+    currentPointCloud = o3d.io.read_point_cloud(folder)
+    return currentPointCloud
+
+#check planarity
+def planarityPC(pointCloudDirectory):
+    pc = currentPCfile(pointCloudDirectory)
+    #downsample point cloud with open3d to reduce number of points
+    downsampledpc = pc.voxel_down_sample(voxel_size=0.25)
+    downsampledpc.estimate_normals(search_param=o3d.geometry.KDTreeSearchParamHybrid(radius=.5, max_nn=30))
+    o3d.visualization.draw_geometries([downsampledpc], point_show_normal=True)
+
 
 #Get object features for each point cloud height
 def allObjectProperties(pointCloudDirectory):
     for pc in pointCloudDirectory:
         #Get current point cloud
-        number = "00" + str(pc)
-        three_digit = number[-3:]
-        name = "pc" + three_digit
-        currentPointCloud = pointCloudDirectory[name]
+        currentPointCloud = currentPC(pointCloudDirectory, pc)
 
         #Get properties by calling related function
         height = objectHeight(currentPointCloud)
@@ -55,6 +75,14 @@ def allObjectProperties(pointCloudDirectory):
         numPoints = len(currentPointCloud)
 
         #print("height: " + str(height) + " bounding box: " + str(bBox) + "number of points: " + str(numPoints))
+
+#Get current point cloud
+def currentPC(pointCloudDirectory, pc):
+    number = "00" + str(pc)
+    three_digit = number[-3:]
+    name = "pc" + three_digit
+    currentPointCloud = pointCloudDirectory[name]
+    return currentPointCloud
 
 #Get feature 1: Height
 def objectHeight(currentPointCloud):
@@ -118,4 +146,5 @@ def objectAverageHeight(currentPointCloud):
 #Main
 if __name__ == "__main__":
     pointCloudDirectory = importFiles()
-    allObjectProperties(pointCloudDirectory)
+    planarityPC(pointCloudDirectory)
+    #allObjectProperties(pointCloudDirectory)
