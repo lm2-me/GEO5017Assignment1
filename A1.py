@@ -1,18 +1,20 @@
 #Github
 ''' git status, git add ., git commit -m "comment about update", git push. --> git pull'''
 
-#Import Point Cloud
+
 import pandas as pd
 import numpy as np
 import pyoctree as poct
 import open3d as o3d
-import math as m
-
-print("start program for importing files")
-
+import math
 import os
+#only used to visualize dendrogram after our own implementation of the hierarchy clustering
+from scipy.cluster.hierarchy import dendrogram
+import matplotlib.pyplot as plt
+
 
 def importFiles():
+    print("start program for importing files")
     cwd = os.getcwd() # get current directory of file
     #print("cwd = " + cwd)
     filewd = (cwd) # tuple to lock original folder location when changing directory
@@ -139,6 +141,14 @@ def objectAverageHeight(currentPointCloud):
 
 #Get feature 4: Vertical Slice
 
+def distance2pts(vector1, vector2, p=2):
+    #Euclidian p = 2
+    #Manhatten p = 1
+    num = 0
+    for i in range(0,len(vector1)):
+        num += abs(vector1[i]-vector2[i]) ** p
+    return num ** (1/p)
+
 #write feature data to file
 #
 sampleFeatureList = [[0, 50, 4, 5], [1, 10, 5, 2], [2, 15, 4, 3], [3, 20, 4, 5]]
@@ -164,35 +174,83 @@ centroids = []
 
 #Hierachy Clusturing
 # Create distance matrix
-def hierarchyClustering(npFeatureList):
+
+def generate_distance_matrix(npFeatureList):
+    fl = np.delete(npFeatureList, 0, 1)
+    n, m = fl.shape[:2]
+    p_repeated = np.repeat([fl],n, axis=1).reshape((n, n, m))
+    p_repeated_T = p_repeated.transpose((1, 0, 2))
+
+    points_sq = (p_repeated - p_repeated_T) ** 2
+    points_sq_sum = np.sum(points_sq, axis=2)
+    points_sq_sum_rt = np.sqrt(points_sq_sum)
+
+    return points_sq_sum_rt
+
+
+def hierarchy_clustering(npFeatureList):
+
     #remove 1st index of all lists
     pcnum = npFeatureList[:,0]
     fl = np.delete(npFeatureList, 0, 1)
     #print(fl)
-    #compute distance matrix
-    distance = lambda p1, p2: m.sqrt(((p1-p2)**2).sum())
-    distmatrix = np.asarray([[distance(p1, p2) for p2 in fl] for p1 in fl])
-    print(distmatrix)
-    
-    #get index of closest points
-    min = np.min(distmatrix[np.where(distmatrix > 0)])
-    min_index = np.array(np.where(distmatrix == min))[0]
-    print(min)
-    print(min_index)
-    level1 = pcnum
-    print(level1)
-    combinedList = [level1[min_index[0]], level1[min_index[1]]]
-    print (combinedList)
 
+    #compute distance matrix
+    dist_matrix = generate_distance_matrix(npFeatureList)
+    print(dist_matrix)
+    
+    #single-linkage clustering
+    dist_list = []
+    for i in range(dist_matrix.shape[0]):
+        for j in range(dist_matrix.shape[1]):
+            if j >= i: continue
+            dist_list.append((dist_matrix[i, j], [i, j]))
+    
+    dist_list.sort()
+    #print(dist_list)
+
+    cluster_table = []
+    next_cluster_id = len(fl)
+    num_points = np.array([[i, 1] for i in np.arange(len(fl))])
+    print("num points", num_points)
+    cluster_lookup = np.array([[i, i] for i in np.arange(len(fl))])
+
+    for dist, pts in dist_list:
+        print("pts", pts)
+        print("dist", dist)
+        cl1 = cluster_lookup[pts[0], 1]
+        cl2 = cluster_lookup[pts[1], 1]
+        print("cl", cl1, cl2)
+        if cl1 == cl2: continue
+        total_points = num_points[cl1, 1] + num_points[cl2, 1]
+        cluster_table.append([cl1, cl2, dist, total_points])
+        num_points = np.append(num_points, [[next_cluster_id, total_points]], axis=0)
+        cluster_lookup[pts[0], 1] = next_cluster_id
+        
+        for i in range(len(cluster_lookup)):
+            if cluster_lookup[i, 1] == cl1 or cluster_lookup[i, 1] == cl2:
+                cluster_lookup[i, 1] = next_cluster_id
+
+        next_cluster_id += 1
+    print("table", cluster_table)
+    print("lookup", cluster_lookup)
+    #visualize
+    visualize_dendrogram(cluster_table)
+    return cluster_table
+
+def visualize_dendrogram(cluster_table):
+    plt.figure()
+    dendrogram(cluster_table)
+    plt.show()
 
 
 #DBSCAN
 
 #Main
 if __name__ == "__main__":
-    pointCloudDirectory = importFiles()
+    #pointCloudDirectory = importFiles()
     #planarityPC(pointCloudDirectory)
     #allObjectProperties(pointCloudDirectory)
     sampleFeatureList = [[0, 50,4,5], [1, 10, 5, 2], [2, 15,4,3], [3, 20,4,5]]
     npFeatureList = np.array(sampleFeatureList)
-    hierarchyClustering(npFeatureList)
+    hierarchy_clustering(npFeatureList)
