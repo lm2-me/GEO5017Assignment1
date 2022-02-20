@@ -6,6 +6,8 @@ import pandas as pd
 import numpy as np
 import pyoctree as poct
 import open3d as o3d
+import math as m
+
 print("start program for importing files")
 
 import os
@@ -138,7 +140,8 @@ def objectAverageHeight(currentPointCloud):
 #Get feature 4: Vertical Slice
 
 #write feature data to file
-
+#
+sampleFeatureList = [[0, 50, 4, 5], [1, 10, 5, 2], [2, 15, 4, 3], [3, 20, 4, 5]]
 
 #plot features against each other
 
@@ -160,11 +163,36 @@ centroids = []
 # re-assign
 
 #Hierachy Clusturing
+# Create distance matrix
+def hierarchyClustering(npFeatureList):
+    #remove 1st index of all lists
+    pcnum = npFeatureList[:,0]
+    fl = np.delete(npFeatureList, 0, 1)
+    #print(fl)
+    #compute distance matrix
+    distance = lambda p1, p2: m.sqrt(((p1-p2)**2).sum())
+    distmatrix = np.asarray([[distance(p1, p2) for p2 in fl] for p1 in fl])
+    print(distmatrix)
+    
+    #get index of closest points
+    min = np.min(distmatrix[np.where(distmatrix > 0)])
+    min_index = np.array(np.where(distmatrix == min))[0]
+    print(min)
+    print(min_index)
+    level1 = pcnum
+    print(level1)
+    combinedList = [level1[min_index[0]], level1[min_index[1]]]
+    print (combinedList)
+
+
 
 #DBSCAN
 
 #Main
 if __name__ == "__main__":
     pointCloudDirectory = importFiles()
-    planarityPC(pointCloudDirectory)
+    #planarityPC(pointCloudDirectory)
     #allObjectProperties(pointCloudDirectory)
+    sampleFeatureList = [[0, 50,4,5], [1, 10, 5, 2], [2, 15,4,3], [3, 20,4,5]]
+    npFeatureList = np.array(sampleFeatureList)
+    hierarchyClustering(npFeatureList)
