@@ -1,7 +1,6 @@
 #Github
 ''' git status, git add ., git commit -m "comment about update", git push. --> git pull'''
 
-
 import pandas as pd
 import numpy as np
 import pyoctree as poct
@@ -60,15 +59,22 @@ def currentPCfile(pointCloudDirectory):
 
 #Get object features for each point cloud height
 def allObjectProperties(pointCloudDirectory):
-    for pc in pointCloudDirectory:
+    object_features = []
+    for i, pc in enumerate(pointCloudDirectory):
         #Get current point cloud
         currentPointCloud = currentPC(pointCloudDirectory, pc)
 
         #Get properties by calling related function
         height = objectHeight(currentPointCloud)
         bBox = boundingBox(currentPointCloud, height)
-        avgHeight = objectAverageHeight(currentPointCloud)
+        avg_height = objectAverageHeight(currentPointCloud)
 
+        if i>=300: break
+
+        object_features.append([i, height, avg_height])
+
+    object_features = np.array(object_features)   
+    return object_features
         #print("height: " + str(height) + " bounding box: " + str(bBox) + "number of points: " + str(numPoints))
 
 #Get current point cloud
@@ -137,7 +143,8 @@ def objectAverageHeight(currentPointCloud):
     allHeights = npCurrentPointCloud[:,2]
 
     averageHeight = sum(allHeights) / len(allHeights)
-    print(averageHeight)
+    #print(averageHeight)
+    return averageHeight
 
 #Get feature 4: Vertical Slice
 
@@ -150,8 +157,7 @@ def distance2pts(vector1, vector2, p=2):
     return num ** (1/p)
 
 #write feature data to file
-#
-sampleFeatureList = [[0, 50, 4, 5], [1, 10, 5, 2], [2, 15, 4, 3], [3, 20, 4, 5]]
+
 
 #plot features against each other
 
@@ -173,7 +179,7 @@ centroids = []
 # re-assign
 
 #Hierachy Clusturing
-# Create distance matrix
+#Create distance matrix
 
 def generate_distance_matrix(npFeatureList):
     fl = np.delete(npFeatureList, 0, 1)
@@ -193,7 +199,7 @@ def hierarchy_clustering(npFeatureList):
     #remove 1st index of all lists
     pcnum = npFeatureList[:,0]
     fl = np.delete(npFeatureList, 0, 1)
-    #print(fl)
+    print(fl)
 
     #compute distance matrix
     dist_matrix = generate_distance_matrix(npFeatureList)
@@ -206,41 +212,53 @@ def hierarchy_clustering(npFeatureList):
             if j >= i: continue
             dist_list.append((dist_matrix[i, j], [i, j]))
     
+    #default sorting is by first value (which is the distance between points) so sort() is okay to use
     dist_list.sort()
     #print(dist_list)
 
+    #initialize variables to track clustering
     cluster_table = []
     next_cluster_id = len(fl)
     num_points = np.array([[i, 1] for i in np.arange(len(fl))])
-    print("num points", num_points)
     cluster_lookup = np.array([[i, i] for i in np.arange(len(fl))])
+    points_in_cluster = {}
 
+    #track which cluster points belong to and the number of points in each cluster
     for dist, pts in dist_list:
-        print("pts", pts)
-        print("dist", dist)
+        #print("pts", pts)
+        #print("dist", dist)
         cl1 = cluster_lookup[pts[0], 1]
         cl2 = cluster_lookup[pts[1], 1]
-        print("cl", cl1, cl2)
+        #print("cl", cl1, cl2)
         if cl1 == cl2: continue
         total_points = num_points[cl1, 1] + num_points[cl2, 1]
         cluster_table.append([cl1, cl2, dist, total_points])
         num_points = np.append(num_points, [[next_cluster_id, total_points]], axis=0)
-        cluster_lookup[pts[0], 1] = next_cluster_id
         
         for i in range(len(cluster_lookup)):
             if cluster_lookup[i, 1] == cl1 or cluster_lookup[i, 1] == cl2:
                 cluster_lookup[i, 1] = next_cluster_id
+                if next_cluster_id not in points_in_cluster:
+                    points_in_cluster[next_cluster_id] = []
+                points_in_cluster[next_cluster_id].append(i)
 
         next_cluster_id += 1
-    print("table", cluster_table)
-    print("lookup", cluster_lookup)
-    #visualize
-    visualize_dendrogram(cluster_table)
+    #print("table", cluster_table)
+    #print("lookup", cluster_lookup)
+
+    #visualize dendrogram of clustering
+    cut_height = cluster_table[-5][2]
+    #cluster_id = len(cluster_table)  - 6
+    #clpts = points_in_cluster[cluster_id]
+    #print(clpts)
+    visualize_dendrogram(cluster_table, cut_height)
     return cluster_table
 
-def visualize_dendrogram(cluster_table):
+def visualize_dendrogram(cluster_table, cut_height):
     plt.figure()
     dendrogram(cluster_table)
+    #LM figure out how to make line dashed
+    plt.axhline(y=cut_height, color='r')
     plt.show()
 
 
@@ -248,9 +266,12 @@ def visualize_dendrogram(cluster_table):
 
 #Main
 if __name__ == "__main__":
-    #pointCloudDirectory = importFiles()
-    #planarityPC(pointCloudDirectory)
-    #allObjectProperties(pointCloudDirectory)
-    sampleFeatureList = [[0, 50,4,5], [1, 10, 5, 2], [2, 15,4,3], [3, 20,4,5]]
-    npFeatureList = np.array(sampleFeatureList)
-    hierarchy_clustering(npFeatureList)
+    pointCloudDirectory = importFiles()
+    object_features = allObjectProperties(pointCloudDirectory)
+    #write object_features to file
+    
+    #for testing
+    #sampleFeatureList = [[0, 50,4,5], [1, 10, 5, 2], [2, 15,4,3], [3, 20,4,5]]
+    #npFeatureList = np.array(sampleFeatureList)
+
+    hierarchy_clustering(object_features)
