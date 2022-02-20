@@ -143,6 +143,16 @@ def objectAverageHeight(currentPointCloud):
 #plot features against each other
 
 #k-means clustering
+
+
+
+
+
+
+centroids = []
+
+
+
 # value of K
 # random K points to act as centroid
 # assign data points based on distance
