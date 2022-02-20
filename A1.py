@@ -44,23 +44,15 @@ def visualizePC(pointCloudDirectory):
     pc = currentPCfile(pointCloudDirectory)
     o3d.visualization.draw_geometries([pc])
 
-#visualize point cloud
+#current o3d point cloud
 def currentPCfile(pointCloudDirectory):
+    ## update to all point clouds when testing is done
     pc = "001"
     filewd = os.getcwd()
     folder = "{0}\{1}.xyz".format(filewd,pc)
     print(folder)
     currentPointCloud = o3d.io.read_point_cloud(folder)
     return currentPointCloud
-
-#check planarity
-def planarityPC(pointCloudDirectory):
-    pc = currentPCfile(pointCloudDirectory)
-    #downsample point cloud with open3d to reduce number of points
-    downsampledpc = pc.voxel_down_sample(voxel_size=0.25)
-    downsampledpc.estimate_normals(search_param=o3d.geometry.KDTreeSearchParamHybrid(radius=.5, max_nn=30))
-    o3d.visualization.draw_geometries([downsampledpc], point_show_normal=True)
-
 
 #Get object features for each point cloud height
 def allObjectProperties(pointCloudDirectory):
@@ -72,7 +64,6 @@ def allObjectProperties(pointCloudDirectory):
         height = objectHeight(currentPointCloud)
         bBox = boundingBox(currentPointCloud, height)
         avgHeight = objectAverageHeight(currentPointCloud)
-        numPoints = len(currentPointCloud)
 
         #print("height: " + str(height) + " bounding box: " + str(bBox) + "number of points: " + str(numPoints))
 
@@ -97,7 +88,7 @@ def objectHeight(currentPointCloud):
     #print(height)
     return height
 
-#Create Bounding Box
+#Feature 2: Bounding Box (Volume?)
 def boundingBox(currentPointCloud, height):
     maxX = 0
     minX = 100
@@ -123,10 +114,17 @@ def boundingBox(currentPointCloud, height):
     #print(bBox)
     return bBox
 
-#Get feature 2: Vertical Slices
+#Feature 3: planarity
+def planarityPC(pointCloudDirectory):
+    pc = currentPCfile(pointCloudDirectory)
+    #downsample point cloud with open3d to reduce number of points
+    downsampledpc = pc.voxel_down_sample(voxel_size=0.25)
+    downsampledpc.estimate_normals(search_param=o3d.geometry.KDTreeSearchParamHybrid(radius=.5, max_nn=30))
+    #o3d.visualization.draw_geometries([downsampledpc], point_show_normal=True)
+    print(downsampledpc.normals[0])
+    #downsampledpc.estimate_covariances(downsampledpc, search_param=o3d.geometry.KDTreeSearchParamKNN with knn = 30)
+    #cos_angle = (vec1[0] * vec2[0] + vec1[1] * vec2[1]) / math.sqrt((vec1[0]**2 + vec1[1]**2) * (vec2[0]**2 + vec2[1]**2))
 
-
-#Get feature 3: planarity
 
 #Get feature 4: Average Height
 def objectAverageHeight(currentPointCloud):
@@ -137,11 +135,23 @@ def objectAverageHeight(currentPointCloud):
     averageHeight = sum(allHeights) / len(allHeights)
     print(averageHeight)
 
-#store feature data
+#Get feature 4: Vertical Slice
+
+#write feature data to file
+
 
 #plot features against each other
 
-#implement clustering
+#k-means clustering
+# value of K
+# random K points to act as centroid
+# assign data points based on distance
+# caluclate new centroid
+# re-assign
+
+#Hierachy Clusturing
+
+#DBSCAN
 
 #Main
 if __name__ == "__main__":
