@@ -65,7 +65,11 @@ def allObjectProperties(pointCloudDirectory):
         #Get properties by calling related function
         height = objectHeight(currentPointCloud)
         bBox = boundingBox(currentPointCloud, height)
-        avgHeight = objectAverageHeight(currentPointCloud)
+        avg_height = objectAverageHeight(currentPointCloud)
+
+        if i>=500: break
+
+        object_features.append([i, height, avg_height])
 
         #print("height: " + str(height) + " bounding box: " + str(bBox) + "number of points: " + str(numPoints))
 
@@ -184,6 +188,98 @@ def hierarchyClustering(npFeatureList):
     combinedList = [level1[min_index[0]], level1[min_index[1]]]
     print (combinedList)
 
+    #single-linkage clustering
+    dist_list = []
+    for i in range(dist_matrix.shape[0]):
+        for j in range(dist_matrix.shape[1]):
+            if j >= i: continue
+            dist_list.append((dist_matrix[i, j], [i, j]))
+    
+    #print('distlist', dist_list)
+    #default sorting is by first value (which is the distance between points) so sort() is okay to use
+    dist_list.sort()
+    #print(dist_list)
+
+    #initialize variables to track clustering
+    point_current_cluster = np.array([[i] for i in np.arange(len(fl))])
+    #print('point current cluster', point_current_cluster)
+    cluster_table = []
+    next_cluster_id = len(fl)
+    num_points = np.array([[i, 1] for i in np.arange(len(fl))])
+    cluster_lookup = np.array([[i, i] for i in np.arange(len(fl))])
+    points_in_cluster = {}
+    height = -5
+
+    #track which cluster points belong to and the number of points in each cluster
+    for dist, pts in dist_list:
+        #print("pts", pts)
+        #print("dist", dist)
+
+        cl1 = cluster_lookup[pts[0], 1]
+        cl2 = cluster_lookup[pts[1], 1]
+        #print("cl", cl1, cl2)
+        if cl1 == cl2: continue
+        total_points = num_points[cl1, 1] + num_points[cl2, 1]
+        cluster_table.append([cl1, cl2, dist, total_points])
+        num_points = np.append(num_points, [[next_cluster_id, total_points]], axis=0)
+
+        
+        append_cluster = []
+
+        for p in range(len(cluster_lookup)):
+            cluster = cluster_lookup[p, 1]
+            append_cluster.append(cluster)
+            #print ('append cluster', append_cluster)
+        
+        point_current_cluster = np.append(point_current_cluster, np.array([append_cluster]).transpose(), axis=1)
+        #print('updated current cluster', point_current_cluster)
+        
+        for i in range(len(cluster_lookup)):
+            if cluster_lookup[i, 1] == cl1 or cluster_lookup[i, 1] == cl2:
+                cluster_lookup[i, 1] = next_cluster_id
+                if next_cluster_id not in points_in_cluster:
+                    points_in_cluster[next_cluster_id] = []
+                points_in_cluster[next_cluster_id].append(i)
+
+        next_cluster_id += 1
+    #print("table", cluster_table)
+    #print("lookup", cluster_lookup)
+
+    #get clusters based on cut_height
+    clusters_at_cut_height = point_current_cluster[:,(height+1)]
+    print(clusters_at_cut_height)
+    unique_cluster_nums = np.unique(clusters_at_cut_height)
+    print(unique_cluster_nums[0])
+
+    color_num = 0
+
+    for i in range(len(unique_cluster_nums)):
+        clusters_at_cut_height = np.where(clusters_at_cut_height==unique_cluster_nums[i], color_num, clusters_at_cut_height)
+        color_num += 1
+
+    print('revised cluster num', clusters_at_cut_height)
+    
+
+
+    #visualize clusters
+    plt.figure(figsize=(10, 7))  
+    plt.scatter(fl[:,0], fl[:,1], c=clusters_at_cut_height) 
+
+
+    #visualize dendrogram of clustering
+    cut_height = cluster_table[height][2] + .05
+    #cluster_id = len(cluster_table)  - 6
+    #clpts = points_in_cluster[cluster_id]
+    #print(clpts)
+    visualize_dendrogram(cluster_table, cut_height)
+    return cluster_table
+
+def visualize_dendrogram(cluster_table, cut_height):
+    plt.figure()
+    dendrogram(cluster_table)
+    #LM figure out how to make line dashed
+    plt.axhline(y=cut_height, color='r')
+    plt.show()
 
 
 #DBSCAN
