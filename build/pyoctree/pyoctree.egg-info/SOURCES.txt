@@ -14,11 +14,3 @@ pyoctree.egg-info/SOURCES.txt
 pyoctree.egg-info/dependency_links.txt
 pyoctree.egg-info/requires.txt
 pyoctree.egg-info/top_level.txt
-pyoctree/Examples/knot.stl
-pyoctree/Examples/octree.vtu
-pyoctree/Examples/pyoctree-intersection.ipynb
-pyoctree/Examples/pyoctree-intro.ipynb
-pyoctree/Examples/pyoctree-shadowcasting.ipynb
-pyoctree/Examples/.ipynb_checkpoints/pyoctree-intersection-checkpoint.ipynb
-pyoctree/Examples/.ipynb_checkpoints/pyoctree-intro-checkpoint.ipynb
-pyoctree/Examples/.ipynb_checkpoints/pyoctree-shadowcasting-checkpoint.ipynb
