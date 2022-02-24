@@ -8,3 +8,9 @@ import os
 #only used to visualize dendrogram after our own implementation of the hierarchy clustering
 from scipy.cluster.hierarchy import dendrogram
 import matplotlib.pyplot as plt
+
+import Hierarchy as hc
+
+
+def cluster_accuracy(cluster):
+    a=1

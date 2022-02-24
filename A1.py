@@ -60,6 +60,8 @@ def currentPCfile(pointCloudDirectory):
 
 #Get object features for each point cloud height
 def allObjectProperties(pointCloudDirectory):
+    i = 0
+    object_features = []
     for pc in pointCloudDirectory:
         #Get current point cloud
         currentPointCloud = currentPC(pointCloudDirectory, pc)
@@ -69,11 +71,12 @@ def allObjectProperties(pointCloudDirectory):
         bBox = boundingBox(currentPointCloud, height)
         avg_height = objectAverageHeight(currentPointCloud)
 
-        if i>=5: break
+        if i >=5: break
 
         object_features.append([i, height, avg_height])
-
+        i += 1
         #print("height: " + str(height) + " bounding box: " + str(bBox) + "number of points: " + str(numPoints))
+    return object_features
 
 #Get current point cloud
 def currentPC(pointCloudDirectory, pc):
@@ -142,6 +145,7 @@ def objectAverageHeight(currentPointCloud):
 
     averageHeight = sum(allHeights) / len(allHeights)
     print(averageHeight)
+    return averageHeight
 
 #Get feature 4: Vertical Slice
 
@@ -175,16 +179,16 @@ centroids = []
 #Main
 if __name__ == "__main__":
     pointCloudDirectory = importFiles()
-    object_features = allObjectProperties(pointCloudDirectory)
+    object_features = np.array(allObjectProperties(pointCloudDirectory))
     #write object_features to file
     
     #for testing
     #sampleFeatureList = [[0, 50,4,5], [1, 10, 5, 2], [2, 15,4,3], [3, 20,4,5]]
     #npFeatureList = np.array(sampleFeatureList)
     #hc.hierarchy_singlelink_clustering(object_features)
-    hc.hierarchy_avglink_clustering(object_features)
+    #hc.hierarchy_avglink_clustering(object_features)
+    hc.compare_clusters(object_features, -4)
     #planarityPC(pointCloudDirectory)
-    #allObjectProperties(pointCloudDirectory)
-    sampleFeatureList = [[0, 50,4,5], [1, 10, 5, 2], [2, 15,4,3], [3, 20,4,5]]
-    npFeatureList = np.array(sampleFeatureList)
-    hierarchyClustering(npFeatureList)
+
+
+    

@@ -8,6 +8,8 @@ import os
 from scipy.cluster.hierarchy import dendrogram
 import matplotlib.pyplot as plt
 
+import ClusterComparing as cc
+
 
 #Hierachy Clusturing
 #Create distance matrix
@@ -93,6 +95,8 @@ def hierarchy_singlelink_clustering(npFeatureList):
         next_cluster_id += 1
     #print("table", cluster_table)
     #print("lookup", cluster_lookup)
+
+    return point_current_cluster, cluster_table
 
     
 
@@ -182,13 +186,24 @@ def hierarchy_avglink_clustering(npFeatureList):
 
         next_cluster_id += 1
 
+    return point_current_cluster, cluster_table
 
-def compare_clusters():
-    a=1
 
-def cut_cluster(point_current_cluster, height):
-    #get clusters based on cut_height
-    clusters_at_cut_height = point_current_cluster[:,(height+1)]
+def compare_clusters(npFeatureList, height):
+    #single_link, sl_cluster_table = hierarchy_singlelink_clustering(npFeatureList)
+    avg_link, avg_cluster_table = hierarchy_avglink_clustering(npFeatureList)
+
+    #cut_single_link = clusters_at_cut_height = single_link[:,(height+1)]
+    cut_avg_link = clusters_at_cut_height = avg_link[:,(height+1)]
+
+    acc_avg = cc.cluster_accuracy(avg_link)
+    #acc_single = cc.cluster_accuracy(single_link)
+
+    cluster_table = [avg_cluster_table]
+
+    #visualize_heirarchy(npFeatureList, clusters_at_cut_height, cluster_table, height)
+
+def color_coded_cluster(clusters_at_cut_height, height):
     print(clusters_at_cut_height)
     unique_cluster_nums = np.unique(clusters_at_cut_height)
     print(unique_cluster_nums[0])
@@ -200,11 +215,13 @@ def cut_cluster(point_current_cluster, height):
         color_num += 1
 
     print('revised cluster num', clusters_at_cut_height)
+    return clusters_at_cut_height 
     
 def visualize_heirarchy(npFeatureList, clusters_at_cut_height, cluster_table, height):
     #visualize clusters
+    colors = color_coded_cluster(clusters_at_cut_height, height)
     plt.figure(figsize=(10, 7))  
-    plt.scatter(npFeatureList[:,1], npFeatureList[:,2], c=clusters_at_cut_height) 
+    plt.scatter(npFeatureList[:,1], npFeatureList[:,2], c=colors) 
 
 
     #visualize dendrogram of clustering
