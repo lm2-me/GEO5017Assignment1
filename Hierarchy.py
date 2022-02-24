@@ -186,7 +186,6 @@ def hierarchy_avglink_clustering(npFeatureList):
 def compare_clusters():
     a=1
 
-
 def cut_cluster(point_current_cluster, height):
     #get clusters based on cut_height
     clusters_at_cut_height = point_current_cluster[:,(height+1)]
