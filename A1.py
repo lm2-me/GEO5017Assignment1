@@ -71,7 +71,7 @@ def allObjectProperties(pointCloudDirectory):
         bBox = boundingBox(currentPointCloud, height)
         avg_height = objectAverageHeight(currentPointCloud)
 
-        if i >=5: break
+        if i >=500: break
 
         object_features.append([i, height, avg_height])
         i += 1
@@ -132,7 +132,7 @@ def planarityPC(pointCloudDirectory):
     downsampledpc = pc.voxel_down_sample(voxel_size=0.25)
     downsampledpc.estimate_normals(search_param=o3d.geometry.KDTreeSearchParamHybrid(radius=.5, max_nn=30))
     #o3d.visualization.draw_geometries([downsampledpc], point_show_normal=True)
-    print(downsampledpc.normals[0])
+    #print(downsampledpc.normals[0])
     #downsampledpc.estimate_covariances(downsampledpc, search_param=o3d.geometry.KDTreeSearchParamKNN with knn = 30)
     #cos_angle = (vec1[0] * vec2[0] + vec1[1] * vec2[1]) / math.sqrt((vec1[0]**2 + vec1[1]**2) * (vec2[0]**2 + vec2[1]**2))
 
@@ -144,7 +144,7 @@ def objectAverageHeight(currentPointCloud):
     allHeights = npCurrentPointCloud[:,2]
 
     averageHeight = sum(allHeights) / len(allHeights)
-    print(averageHeight)
+    #print(averageHeight)
     return averageHeight
 
 #Get feature 4: Vertical Slice
