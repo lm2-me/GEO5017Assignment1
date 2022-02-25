@@ -1,5 +1,7 @@
 import math
 import numpy as np
+import copy
+import matplotlib.pyplot as plt
 
 
 def distance2pts(vector1, vector2, p=2):
@@ -11,96 +13,80 @@ def distance2pts(vector1, vector2, p=2):
     return num ** (1/p)
 
 
-#distance2pts([0,2,3,4],[2,4,3,7],1)
+pointcloudsdummy = np.random.randint(0,500,1500).reshape((500,3))
 
-a = np.array((1.1, 2.2, 3.3))
-b = np.array((4.4, 5.5, 6.6))
-
-#distance2pts(a,b,1.5)
-
-#implement a seed?
-
-# start positions
-
-
-# def distEuclidian()
-
-#loop
-#compute closest
-
-pointcloudsdummy = np.random.randint(0,400,75).reshape((25,3))
-
-#pointcloudsdummy = np.array([[2,5,4],[48,89,6],[4,3,8],[4,2,8],[7,5,6]])
 
 def kMeans(data, k, feature1, feature2):
-    #cluster = np.zeros(shape=[500,2]) #used for?
     dataset_length = len(data)
     print("Dataset length is: ", dataset_length)
 
     dataConsidered = data[:,[feature1,feature2]]
-    #print(dataConsidered)
 
     pick_centroids = np.random.randint(0,dataset_length,k)
-    print(pick_centroids)
-    
-    #print("datacon", dataConsidered)
 
     print("this is k: ", k)
 
     centroids = np.empty([k,2])
-    print("start centroid set: ", centroids)
-
+  
     for i, c in enumerate(pick_centroids):
-        print(c)
-        #centroids = np.append(centroids, [dataConsidered[c]])
         centroids[i] = dataConsidered[c]
-
-    print("these are the centroids ", centroids)
-
 
     clustergroup = np.zeros(dataset_length)
     clustergroup_new = np.zeros(dataset_length)
     
+    round = 0
     running = 1
     while running == 1:
         print("start while loop")
+        print("round {} centroids: ".format(round), centroids)
+        old_centroids = copy.deepcopy(centroids)
+
         #for each point:
         for i, location in enumerate(dataConsidered):
-            print("level 1 loop")
             distance = float('inf') # our distance from each point to centroid
             #now check for each centroid
             for i2, centroid in enumerate(centroids):
-                print("level 2 loop")
                 temp_dist = distance2pts(location, centroid)
                 if temp_dist < distance:
                     distance = temp_dist
-                    clustergroup_new[i] = centroid
-            print("cluster group subtraction, old from new: ", clustergroup - clustergroup_new)
-
-            if clustergroup - clustergroup_new != 0:
-                clustergroup = clustergroup_new
-            else:
-                running = 0
-
-
+                    clustergroup_new[i] = i2
+         
+  
         #update centroids data
         #take all items in dictionary with that centroids, then calculate new center, then update centroid data
         for i, centroid in enumerate(centroids):
-            temp_list = []
-            for i2, item in clustergroup:
-                if item == centroid:
-                    temp_list.append(dataConsidered[i2])
+            temp_list = np.empty([1,2])
+            for i2, item in enumerate(clustergroup_new):
+                if item == i:
+                    temp_list = np.append(temp_list, [dataConsidered[i2]], axis=0)
+            centroids[i] = temp_list.mean(axis=0)
+          
+        #       Ending correctly or looping
 
-            centroid[i] = temp_list.mean()
+        if np.all(old_centroids == centroids) == True:
+            print("Running has been set to zero!!!!!")
+            running = 0
+            return clustergroup_new, centroids, dataConsidered
+        else:
+            clustergroup = clustergroup_new
+
+        round += 1
+        print("this was round: ", round)
 
 
-#dictionary where each is has number of cluster, 000: 1, 001:3, 002: 3, etc
+clustergroup_new, centroids, dataConsidered = kMeans(pointcloudsdummy,5, 0, 1)
 
-kMeans(pointcloudsdummy,3, 0, 1)
 
-# print(pointcloudsdummy)
+#Plot graphs
+def plot_kmeans(clustergroup_new, centroids, dataConsidered):
+    #Getting the Centroids
+    u_labels = np.unique(clustergroup_new)
 
-#compute centroids
+    # #plotting the results:
+    for p in u_labels:
+        plt.scatter(dataConsidered[clustergroup_new == p , 0] , dataConsidered[clustergroup_new == p , 1] , label = p)
+    plt.scatter(centroids[:,0] , centroids[:,1] , s = 80, color = "black")
+    plt.legend()
+    plt.show()
 
-#move K;s to centroids
-
+plot_kmeans(clustergroup_new, centroids, dataConsidered)
