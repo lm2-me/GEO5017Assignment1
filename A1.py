@@ -149,44 +149,15 @@ def objectAverageHeight(currentPointCloud):
 
 #Get feature 4: Vertical Slice
 
-#write feature data to file
-#
-sampleFeatureList = [[0, 50, 4, 5], [1, 10, 5, 2], [2, 15, 4, 3], [3, 20, 4, 5]]
-
-#plot features against each other
-
-#k-means clustering
-
-
-
-
-
-
-centroids = []
-
-
-
-# value of K
-# random K points to act as centroid
-# assign data points based on distance
-# caluclate new centroid
-# re-assign
-
-
-
-#DBSCAN
 
 #Main
 if __name__ == "__main__":
     pointCloudDirectory = importFiles()
     object_features = np.array(allObjectProperties(pointCloudDirectory))
-    #write object_features to file
     
     #for testing
     #sampleFeatureList = [[0, 50,4,5], [1, 10, 5, 2], [2, 15,4,3], [3, 20,4,5]]
-    #npFeatureList = np.array(sampleFeatureList)
-    #hc.hierarchy_singlelink_clustering(object_features)
-    #hc.hierarchy_avglink_clustering(object_features)
+
     hc.compare_clusters(object_features, -4)
     #planarityPC(pointCloudDirectory)
 
