@@ -27,6 +27,27 @@ def generate_distance_matrix(npFeatureList):
 
     return points_sq_sum_rt, labels
 
+def generate_distance_minmax(clusterList):
+    labels = clusterList[:,0]
+    max_pts = max([len(a) for a in clusterList[:, 1]])
+    #print('cluster list', clusterList)
+    y_values = np.array([np.pad(a, ((0, max_pts - len(a)), (0, 0)), 'edge') for a in clusterList[:, 1]])
+    # print('y_values', y_values)
+    n = len(clusterList)
+    dist_table_1 = np.repeat(np.repeat(y_values, max_pts, axis=1), n, axis=0).reshape((n, n, max_pts, max_pts, 2))
+    dist_table_2 = dist_table_1.transpose(1, 0, 3, 2, 4)
+
+    dist_table_diff = (dist_table_1 - dist_table_2) ** 2
+    dist_table_full = np.sqrt(np.sum(dist_table_diff, axis=4))
+    dist_table_full_max = np.max(np.max(dist_table_full, axis=3), axis=2)
+    diagonal_multiplier = np.ones((n, n)) - np.eye(n, n)
+    dist_table_nozero_no_diagnoal = dist_table_full_max * diagonal_multiplier
+
+    #print(dist_table_nozero_no_diagnoal)
+
+    dist_table_nozero = np.where(dist_table_nozero_no_diagnoal == 0, np.Infinity, dist_table_nozero_no_diagnoal)
+
+    return dist_table_nozero, labels
 
 def hierarchy_singlelink_clustering(npFeatureList):
 
@@ -98,13 +119,7 @@ def hierarchy_singlelink_clustering(npFeatureList):
 
     return point_current_cluster, cluster_table
 
-    
-
 def hierarchy_avglink_clustering(npFeatureList):
-    #remove 1st index of all lists
-    pcnum = npFeatureList[:,0]
-    #fl = np.delete(npFeatureList, 0, 1)
-    #print('fl', fl)
 
     currentPoints = np.copy(npFeatureList)
     point_current_cluster = np.array([[f[0]] for f in npFeatureList])
@@ -118,6 +133,7 @@ def hierarchy_avglink_clustering(npFeatureList):
     #get 1st distance matrix
     while len(currentPoints) > 1:
         #print('currentpoints', currentPoints)
+        print ('now working on cluster', next_cluster_id-len(npFeatureList), end="\r")
         dist_matrix, labels = generate_distance_matrix(currentPoints)
         #print(dist_matrix)
 
@@ -188,20 +204,108 @@ def hierarchy_avglink_clustering(npFeatureList):
 
     return point_current_cluster, cluster_table
 
+def hierarchy_completelink_clustering(npFeatureList):
+    currentPoints = np.array([[f[0], [f[1:]]] for f in npFeatureList],dtype=object)
+    point_current_cluster = np.array([[f[0]] for f in npFeatureList])
+    #print('point current cluster', point_current_cluster)
+    cluster_table = []
+    next_cluster_id = len(npFeatureList)
+    num_points = np.array([[f[0], 1] for f in npFeatureList])
+    cluster_lookup = np.array([[f[0], f[0]] for f in npFeatureList])
+    points_in_cluster = {}
+
+    #get 1st distance matrix
+    while len(currentPoints) > 1:
+        print ('now working on cluster', next_cluster_id-len(npFeatureList), end="\r")
+        #print('currentpoints', currentPoints)
+        dist_matrix, labels = generate_distance_minmax(currentPoints)
+        #print(dist_matrix)
+
+        dist_list = []
+        for i in range(dist_matrix.shape[0]):
+            for j in range(dist_matrix.shape[1]):
+                if j >= i: continue
+                l1 = labels[i]
+                l2 = labels[j]
+                dist_list.append((dist_matrix[i, j], [l1, l2]))
+        
+        dist_list.sort()
+        #print(dist_list)
+
+        dist = dist_list[0] [0]
+        cl1 = int(dist_list[0] [1] [0])
+        cl2 = int(dist_list[0] [1] [1])
+        #print('dist', dist)
+        #print("cl", cl1, cl2)
+
+        if cl1 == cl2: continue
+
+        total_points = num_points[cl1, 1] + num_points[cl2, 1]
+        cluster_table.append([cl1, cl2, dist, total_points])  
+        num_points = np.append(num_points, [[next_cluster_id, total_points]], axis=0)
+
+        
+        append_cluster = []
+
+        #append point_current_cluster to add the number that it is currently in
+        for p in range(len(cluster_lookup)):
+            cluster = cluster_lookup[p, 1]
+            append_cluster.append(cluster)
+        #print('append', append_cluster)
+        point_current_cluster = np.append(point_current_cluster, np.array([append_cluster]).T, axis=1)
+
+        #update cluster lookup to know which point is a part of which cluster
+        for c in range(len(cluster_lookup)):
+            if cluster_lookup[c, 1] == cl1 or cluster_lookup[c, 1] == cl2:
+                cluster_lookup[c, 1] = next_cluster_id
+                if next_cluster_id not in points_in_cluster:
+                    points_in_cluster[next_cluster_id] = []
+                points_in_cluster[next_cluster_id].append(cluster_lookup[c, 0])
+            #print("points in cluster", points_in_cluster)
+        
+        #get average distance of  new cluster
+        #print ('currentpoints here', currentPoints)
+        all_points = []
+        for pt in points_in_cluster[next_cluster_id]:
+            all_points.append(npFeatureList[int(pt)][1:])
+
+        for j in range(len(currentPoints))[::-1]:
+            #print('j', j, pt)
+            if currentPoints[j, 0] == cl1 or currentPoints[j, 0] == cl2: 
+                currentPoints = np.delete(currentPoints, [j], 0)
+            #print ('point', pt)
+            #print('index pt', currentPoints[pt])
+
+        new_cluster = [[next_cluster_id, all_points]]
+        currentPoints = np.append(currentPoints, new_cluster, 0)
+
+        #print(currentPoints)
+
+        next_cluster_id += 1
+
+    return point_current_cluster, cluster_table
 
 def compare_clusters(npFeatureList, height):
     single_link, sl_cluster_table = hierarchy_singlelink_clustering(npFeatureList)
+    print('single link clustering done')
     avg_link, avg_cluster_table = hierarchy_avglink_clustering(npFeatureList)
+    print('average link clustering done')
+    complete_link, compl_cluster_table = hierarchy_completelink_clustering(npFeatureList)
+    print('complete link clustering done')
 
     cut_single_link = single_link[:,(height)]
     cut_avg_link = avg_link[:,(height)]
+    cut_comp_link = complete_link[:,(height)]
 
     #print('cut avg link', cut_avg_link)
     #print('cut single link', cut_single_link)
-
+    #print('cut single link', cut_comp_link)
+    print('single link clustering accuracy')
     acc_single = cc.cluster_accuracy(cut_single_link)
+    print('average link clustering accuracy')
     acc_avg = cc.cluster_accuracy(cut_avg_link)
-    acc_complete = 0
+    print('complete link clustering accuracy')
+    acc_complete = cc.cluster_accuracy(cut_comp_link)
 
     accuracy_counts = [acc_single, acc_avg, acc_complete]
 
@@ -213,9 +317,9 @@ def compare_clusters(npFeatureList, height):
     elif max_id == 1:
         visualize_heirarchy(npFeatureList, cut_avg_link, avg_cluster_table, height)
         return cut_avg_link, acc_avg
-    """elif max_id == 2:
-        visualize_heirarchy(npFeatureList, cut_single_link, sl_cluster_table, height)
-        return cut_single_link, acc_single"""
+    elif max_id == 2:
+        visualize_heirarchy(npFeatureList, cut_comp_link, compl_cluster_table, height)
+        return cut_comp_link, acc_complete
 
 
 def color_coded_cluster(clusters_at_cut_height, height):
