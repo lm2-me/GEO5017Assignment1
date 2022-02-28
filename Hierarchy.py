@@ -14,6 +14,7 @@ import ClusterComparing as cc
 #Hierachy Clusturing
 #Create distance matrix
 
+#distance matrix for average and single-link clusteirng
 def generate_distance_matrix(npFeatureList):
     fl = np.delete(npFeatureList, 0, 1)
     labels = npFeatureList[:,0]
@@ -27,6 +28,7 @@ def generate_distance_matrix(npFeatureList):
 
     return points_sq_sum_rt, labels
 
+#distance matrix for complete clustering
 def generate_distance_minmax(clusterList):
     labels = clusterList[:,0]
     max_pts = max([len(a) for a in clusterList[:, 1]])
@@ -34,7 +36,8 @@ def generate_distance_minmax(clusterList):
     y_values = np.array([np.pad(a, ((0, max_pts - len(a)), (0, 0)), 'edge') for a in clusterList[:, 1]])
     # print('y_values', y_values)
     n = len(clusterList)
-    dist_table_1 = np.repeat(np.repeat(y_values, max_pts, axis=1), n, axis=0).reshape((n, n, max_pts, max_pts, 2))
+    f = len(clusterList[0, 1] [0])
+    dist_table_1 = np.repeat(np.repeat(y_values, max_pts, axis=1), n, axis=0).reshape((n, n, max_pts, max_pts, f))
     dist_table_2 = dist_table_1.transpose(1, 0, 3, 2, 4)
 
     dist_table_diff = (dist_table_1 - dist_table_2) ** 2
@@ -49,6 +52,7 @@ def generate_distance_minmax(clusterList):
 
     return dist_table_nozero, labels
 
+#link clusters based on nearest points in clusters
 def hierarchy_singlelink_clustering(npFeatureList):
 
     #remove 1st index of all lists
@@ -119,6 +123,7 @@ def hierarchy_singlelink_clustering(npFeatureList):
 
     return point_current_cluster, cluster_table
 
+#link clusters based on average distance between points in clusters
 def hierarchy_avglink_clustering(npFeatureList):
 
     currentPoints = np.copy(npFeatureList)
@@ -193,7 +198,8 @@ def hierarchy_avglink_clustering(npFeatureList):
             #print('index pt', currentPoints[pt])
 
         all_points = np.array(all_points)
-        mean = np.array([[next_cluster_id, np.mean(all_points[:,0]), np.mean(all_points[:,1])]])
+        #update if more than three features
+        mean = np.array([[next_cluster_id, np.mean(all_points[:,0]), np.mean(all_points[:,1]), np.mean(all_points[:,2])]])
         #print('mean', mean)
 
         currentPoints = np.append(currentPoints, mean, 0)
@@ -204,8 +210,9 @@ def hierarchy_avglink_clustering(npFeatureList):
 
     return point_current_cluster, cluster_table
 
+#link clusters based on furthest points in clusters
 def hierarchy_completelink_clustering(npFeatureList):
-    currentPoints = np.array([[f[0], [f[1:]]] for f in npFeatureList],dtype=object)
+    currentPoints = np.array([[f[0], [f[1:]]] for f in npFeatureList], dtype=object)
     point_current_cluster = np.array([[f[0]] for f in npFeatureList])
     #print('point current cluster', point_current_cluster)
     cluster_table = []
@@ -285,6 +292,7 @@ def hierarchy_completelink_clustering(npFeatureList):
 
     return point_current_cluster, cluster_table
 
+#compare accuracy of clusters
 def compare_clusters(npFeatureList, height):
     single_link, sl_cluster_table = hierarchy_singlelink_clustering(npFeatureList)
     print('single link clustering done')
@@ -312,16 +320,16 @@ def compare_clusters(npFeatureList, height):
     max_id = np.argmax(accuracy_counts)
 
     if max_id == 0:
-        visualize_heirarchy(npFeatureList, cut_single_link, sl_cluster_table, height)
+        visualize_hierarchy(npFeatureList, cut_single_link, sl_cluster_table, height)
         return cut_single_link, acc_single
     elif max_id == 1:
-        visualize_heirarchy(npFeatureList, cut_avg_link, avg_cluster_table, height)
+        visualize_hierarchy(npFeatureList, cut_avg_link, avg_cluster_table, height)
         return cut_avg_link, acc_avg
     elif max_id == 2:
-        visualize_heirarchy(npFeatureList, cut_comp_link, compl_cluster_table, height)
+        visualize_hierarchy(npFeatureList, cut_comp_link, compl_cluster_table, height)
         return cut_comp_link, acc_complete
 
-
+#color code points based on which cluster they are in
 def color_coded_cluster(clusters_at_cut_height, height):
     #print(clusters_at_cut_height)
     unique_cluster_nums = np.unique(clusters_at_cut_height)
@@ -336,11 +344,12 @@ def color_coded_cluster(clusters_at_cut_height, height):
     #print('revised cluster num', clusters_at_cut_height)
     return clusters_at_cut_height 
     
-def visualize_heirarchy(npFeatureList, clusters_at_cut_height, cluster_table, height):
+#graph showing best hierachical clustering
+def visualize_hierarchy(npFeatureList, clusters_at_cut_height, cluster_table, height):
     #visualize clusters
     colors = color_coded_cluster(clusters_at_cut_height, height)
     plt.figure(figsize=(10, 7))  
-    plt.scatter(npFeatureList[:,1], npFeatureList[:,2], c=colors) 
+    plt.scatter(npFeatureList[:,1], npFeatureList[:,2], npFeatureList[:,3], c=colors) 
 
 
     #visualize dendrogram of clustering
@@ -351,6 +360,7 @@ def visualize_heirarchy(npFeatureList, clusters_at_cut_height, cluster_table, he
     visualize_dendrogram(cluster_table, cut_height)
     return cluster_table
 
+#dendrogram showing best hierarchical clustering
 def visualize_dendrogram(cluster_table, cut_height):
     plt.figure()
     dendrogram(cluster_table)

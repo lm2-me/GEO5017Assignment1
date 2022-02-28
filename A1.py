@@ -44,17 +44,19 @@ def importFiles():
     return d
 
 #visualize point cloud
-def visualizePC(pointCloudDirectory):
-    pc = currentPCfile(pointCloudDirectory)
-    o3d.visualization.draw_geometries([pc])
+def visualizePC(pointCloudDirectory, pc):
+    cloud = currento3dPCfile(pointCloudDirectory, pc)
+    o3d.visualization.draw_geometries([cloud])
 
 #current o3d point cloud
-def currentPCfile(pointCloudDirectory):
+def currento3dPCfile(pc):
     ## update to all point clouds when testing is done
-    pc = "001"
+    
+    number = "00" + str(pc)
+    three_digit = number[-3:] 
     filewd = os.getcwd()
-    folder = "{0}\{1}.xyz".format(filewd,pc)
-    print(folder)
+    folder = "{0}\{1}.xyz".format(filewd, three_digit)
+    #print(folder)
     currentPointCloud = o3d.io.read_point_cloud(folder)
     return currentPointCloud
 
@@ -65,20 +67,23 @@ def allObjectProperties(pointCloudDirectory):
     for pc in pointCloudDirectory:
         #Get current point cloud
         currentPointCloud = currentPC(pointCloudDirectory, pc)
+        currentPointCloud_o3d = currento3dPCfile(pc)
 
         #Get properties by calling related function
         height = objectHeight(currentPointCloud)
-        bBox = boundingBox(currentPointCloud, height)
-        avg_height = objectAverageHeight(currentPointCloud)
+        volume = convexHull(currentPointCloud_o3d)
+        #avg_height = objectAverageHeight(currentPointCloud)
+        area = areaBase(currentPointCloud_o3d)
+        num_planes = planarityPC(currentPointCloud_o3d)
 
         if i >=500: break
 
-        object_features.append([i, height, avg_height])
+        object_features.append([i, height, volume, area])
         i += 1
-        #print("height: " + str(height) + " bounding box: " + str(bBox) + "number of points: " + str(numPoints))
+        #print("height: " + str(height) + " volume: " + str(volume) + " area: " + str(area))
     return object_features
 
-#Get current point cloud
+#Get current point cloud and save to new array
 def currentPC(pointCloudDirectory, pc):
     number = "00" + str(pc)
     three_digit = number[-3:]
@@ -99,35 +104,21 @@ def objectHeight(currentPointCloud):
     #print(height)
     return height
 
-#Feature 2: Bounding Box (Volume?)
-def boundingBox(currentPointCloud, height):
-    maxX = 0
-    minX = 100
-    maxY = 0
-    minY = 100
-
-    for point in currentPointCloud:
-        if point[0] < minX:
-            minX = point[0]
-        if point[0] > maxX:
-            maxX = point[0]
-        if point[1] < minY:
-            minY = point[1]
-        if point[1] > maxY:
-            maxY = point[1]
-        #minX, minY, maxX, maxY now defined
+#Feature 2: Convex hull for Volume
+def convexHull(pc):
+    convhull, _ = pc.compute_convex_hull()
+    #print('convhull', convhull)
+    convhull_lns = o3d.geometry.LineSet.create_from_triangle_mesh(convhull)
+    convhull_lns.paint_uniform_color((0, 0, 1))
+    #visualize convex hull
+    #o3d.visualization.draw_geometries([pc, convhull_lns])
     
-    minCorner = (minX, minY, 0)
-    maxCorner = (maxX, maxY, height)
-
-    bBox = (minCorner, maxCorner)
-    
-    #print(bBox)
-    return bBox
+    volume = convhull.get_volume()
+    #print(volume)
+    return volume
 
 #Feature 3: planarity
-def planarityPC(pointCloudDirectory):
-    pc = currentPCfile(pointCloudDirectory)
+def planarityPC(pc):
     #downsample point cloud with open3d to reduce number of points
     downsampledpc = pc.voxel_down_sample(voxel_size=0.25)
     downsampledpc.estimate_normals(search_param=o3d.geometry.KDTreeSearchParamHybrid(radius=.5, max_nn=30))
@@ -147,8 +138,22 @@ def objectAverageHeight(currentPointCloud):
     #print(averageHeight)
     return averageHeight
 
-#Get feature 4: Vertical Slice
+#Get feature 5: Area of plan view
+def areaBase(pc):
+    bBox = pc.get_axis_aligned_bounding_box()
+    bBox.color = (0, 0, 1)
 
+    min = bBox.get_min_bound()
+    max = bBox.get_max_bound()
+
+    length = max[0] - min[0]
+    width = max[1] - min[1]
+
+    area = length * width   
+    
+    bBox.color = (0, 0, 1)
+    #o3d.visualization.draw_geometries([pc, bBox])
+    return area
 
 #Main
 if __name__ == "__main__":
@@ -159,7 +164,7 @@ if __name__ == "__main__":
     #sampleFeatureList = [[0, 50,4,5], [1, 10, 5, 2], [2, 15,4,3], [3, 20,4,5]]
 
     hc.compare_clusters(object_features, -4)
-    #planarityPC(pointCloudDirectory)
+
 
 
     
