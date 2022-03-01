@@ -199,7 +199,7 @@ def hierarchy_avglink_clustering(npFeatureList):
 
         all_points = np.array(all_points)
         #update if more than three features
-        mean = np.array([[next_cluster_id, np.mean(all_points[:,0]), np.mean(all_points[:,1]), np.mean(all_points[:,2])]])
+        mean = np.array([[next_cluster_id, np.mean(all_points[:,0]), np.mean(all_points[:,1]), np.mean(all_points[:,2]), np.mean(all_points[:,3])]])
         #print('mean', mean)
 
         currentPoints = np.append(currentPoints, mean, 0)

@@ -55,8 +55,8 @@ def visualizePC(pointCloudDirectory, pc):
 def currento3dPCfile(pc):
     ## update to all point clouds when testing is done
     
-    number = "001"
-    #number = "00" + str(pc)
+    #number = "001"
+    number = "00" + str(pc)
     three_digit = number[-3:] 
     filewd = os.getcwd()
     folder = "{0}\{1}.xyz".format(filewd, three_digit)
@@ -80,11 +80,12 @@ def allObjectProperties(pointCloudDirectory):
         area = areaBase(currentPointCloud_o3d)
         num_planes = planarityPC(currentPointCloud_o3d)
 
-        if i >=1: break
+        #remove at end, for testing only
+        if i >=10: break
 
-        object_features.append([i, height, volume, area])
+        object_features.append([i, height, volume, area, num_planes])
         i += 1
-        #print("height: " + str(height) + " volume: " + str(volume) + " area: " + str(area))
+        #print(str(i) + " height: " + str(height) + " volume: " + str(volume) + " area: " + str(area) + " num planes: " + str(num_planes))
     return object_features
 
 #Get current point cloud and save to new array
@@ -95,6 +96,17 @@ def currentPC(pointCloudDirectory, pc):
     currentPointCloud = pointCloudDirectory[name]
     return currentPointCloud
 
+#normalize features
+def normalize_features(object_features):
+    all_normalized_features = np.copy(object_features)
+    for i in range(1, object_features.shape[1]):
+        min = np.min(object_features[:,i])
+        normalized_feature = object_features[:,i] - min
+        max = np.max(normalized_feature)
+        normalized_feature = normalized_feature / max
+        all_normalized_features[:,i] = normalized_feature
+    print(all_normalized_features)
+    return all_normalized_features
 #Get feature 1: Height
 def objectHeight(currentPointCloud):
     maxZ = 0
@@ -127,22 +139,23 @@ def planarityPC(pc):
     downsampledpc = pc.voxel_down_sample(voxel_size=0.25)
     allpoints = pc
     numplanes = 0
-    indexes = []
     #get planes with o3d segment_plane
     
     pcarray = np.asarray(pc.points)
 
-    for p in range(5):
+    while len(np.asarray(allpoints.points)) > .2 * len(pcarray):
+        indexes = []
+        
         plane_model, inliers = allpoints.segment_plane(distance_threshold=0.1,ransac_n=3, num_iterations=1000)
 
-        inlier_cloud = pc.select_by_index(inliers)
+        inlier_cloud = allpoints.select_by_index(inliers)
         inlier_cloud.paint_uniform_color([1.0, 0, 0])
-        o3d.visualization.draw_geometries([inlier_cloud])
+        #o3d.visualization.draw_geometries([inlier_cloud])
         #print('inlier cloud', inlier_cloud)
         #print("pcarray", inliers)
-        for item in range(len(pcarray)):
+        for item in range(len(np.asarray(allpoints.points))):
             if item in inliers:
-                print('in list', item)
+                #print('in list', item)
                 continue
             else:
                 indexes.append(item)
@@ -150,12 +163,15 @@ def planarityPC(pc):
 
         allpoints = allpoints.select_by_index(indexes)
 
-        if len(inliers) > .2 * len(pcarray):
-            numplanes += 1
+        #test for buildings vs other objects
+        #if len(inliers) > .2 * len(pcarray):
+        numplanes += 1
 
         #print('inliers', inliers)
-        o3d.visualization.draw_geometries([allpoints])
+        allpoints.paint_uniform_color([0, 0, 1])
+        #o3d.visualization.draw_geometries([allpoints, inlier_cloud])
 
+    return numplanes
     #get planes with normals
     # downsampledpc.estimate_normals(search_param=o3d.geometry.KDTreeSearchParamHybrid(radius=.5, max_nn=30))
     
@@ -224,20 +240,9 @@ def areaBase(pc):
 if __name__ == "__main__":
     pointCloudDirectory = importFiles()
     object_features = np.array(allObjectProperties(pointCloudDirectory))
-    
-    #for testing
-    #sampleFeatureList = [[0, 50,4,5], [1, 10, 5, 2], [2, 15,4,3], [3, 20,4,5]]
+    normalized_object_features = normalize_features(object_features)
 
-    #hc.compare_clusters(object_features, -4)
-    #k-means
-    #dbscan
-
-    #show graph of each one
-    #print "this method was most accurate"
-
-
-
-    
+    hc.compare_clusters(normalized_object_features, -4)  
 
     #temp data generation
     pointcloudsdummy = np.random.randn(800).reshape((100,8))
@@ -252,3 +257,6 @@ if __name__ == "__main__":
     cluster2, centroids, dataConsidered = KMeans.kMeans(pointcloudsdummy,5, [0,1,2,4,5])
 
     cc.cluster_accuracy(cluster2)
+
+    #show graph of each one
+    #print "this method was most accurate"
