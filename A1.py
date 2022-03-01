@@ -7,9 +7,12 @@ import numpy as np
 import pyoctree as poct
 import open3d as o3d
 import math as m
+import copy
 
 import Hierarchy as hc
 import ClusterComparing as cc
+import KMeans
+import DBSCAN
 print("start program for importing files")
 
 import os
@@ -168,3 +171,17 @@ if __name__ == "__main__":
 
 
     
+
+    #temp data generation
+    pointcloudsdummy = np.random.randn(800).reshape((100,8))
+
+    # DBSCAN - dbscan(data, [features from data], epsilon(radius distance), min number of points in cluster)
+    cluster, dataConsidered = DBSCAN.dbscan(pointcloudsdummy, [0,1,3,4,5], 1.3, 3)
+
+    cc.cluster_accuracy(cluster)
+
+
+    # K-means - kMeans(data, k-clusters, [features from dataset])
+    cluster2, centroids, dataConsidered = KMeans.kMeans(pointcloudsdummy,5, [0,1,2,4,5])
+
+    cc.cluster_accuracy(cluster2)
