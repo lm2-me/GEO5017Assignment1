@@ -226,6 +226,11 @@ if __name__ == "__main__":
     #sampleFeatureList = [[0, 50,4,5], [1, 10, 5, 2], [2, 15,4,3], [3, 20,4,5]]
 
     #hc.compare_clusters(object_features, -4)
+    #k-means
+    #dbscan
+
+    #show graph of each one
+    #print "this method was most accurate"
 
 
 
