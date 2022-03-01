@@ -52,7 +52,8 @@ def visualizePC(pointCloudDirectory, pc):
 def currento3dPCfile(pc):
     ## update to all point clouds when testing is done
     
-    number = "00" + str(pc)
+    number = "001"
+    #number = "00" + str(pc)
     three_digit = number[-3:] 
     filewd = os.getcwd()
     folder = "{0}\{1}.xyz".format(filewd, three_digit)
@@ -76,7 +77,7 @@ def allObjectProperties(pointCloudDirectory):
         area = areaBase(currentPointCloud_o3d)
         num_planes = planarityPC(currentPointCloud_o3d)
 
-        if i >=500: break
+        if i >=1: break
 
         object_features.append([i, height, volume, area])
         i += 1
@@ -121,12 +122,73 @@ def convexHull(pc):
 def planarityPC(pc):
     #downsample point cloud with open3d to reduce number of points
     downsampledpc = pc.voxel_down_sample(voxel_size=0.25)
-    downsampledpc.estimate_normals(search_param=o3d.geometry.KDTreeSearchParamHybrid(radius=.5, max_nn=30))
-    #o3d.visualization.draw_geometries([downsampledpc], point_show_normal=True)
-    #print(downsampledpc.normals[0])
+    allpoints = pc
+    numplanes = 0
+    indexes = []
+    #get planes with o3d segment_plane
+    
+    pcarray = np.asarray(pc.points)
+
+    for p in range(5):
+        plane_model, inliers = allpoints.segment_plane(distance_threshold=0.1,ransac_n=3, num_iterations=1000)
+
+        inlier_cloud = pc.select_by_index(inliers)
+        inlier_cloud.paint_uniform_color([1.0, 0, 0])
+        o3d.visualization.draw_geometries([inlier_cloud])
+        #print('inlier cloud', inlier_cloud)
+        #print("pcarray", inliers)
+        for item in range(len(pcarray)):
+            if item in inliers:
+                print('in list', item)
+                continue
+            else:
+                indexes.append(item)
+        #print('indexes', indexes)
+
+        allpoints = allpoints.select_by_index(indexes)
+
+        if len(inliers) > .2 * len(pcarray):
+            numplanes += 1
+
+        #print('inliers', inliers)
+        o3d.visualization.draw_geometries([allpoints])
+
+    #get planes with normals
+    # downsampledpc.estimate_normals(search_param=o3d.geometry.KDTreeSearchParamHybrid(radius=.5, max_nn=30))
+    
+    # print(downsampledpc.normals[0])
+    
+    # normals = np.asarray(downsampledpc.normals)
+    # print('num normals', len(normals))
+    # planes = {}
+
+    # for i in range(len(normals)):
+    #     for j in range(i+1, len(normals), 1):
+    #         dot = np.dot(normals[i], normals[j])
+    #         if dot > 0.85 and dot <= 1:
+    #             if i not in planes:
+    #                 planes[i] = []
+    #                 planes[i].append(normals[i])
+    #             planes[i].append(normals[j])
+    #             np.delete(normals, j)
+
+    #             if j == len(normals):
+    #                 np.delete(normals, i)
+
+    # points_in_plane = []
+    # print('length planes', len(planes))
+    # for p in planes:
+    #     points_in_plane.append(len(planes[p]))
+
+    # print('points in plane', points_in_plane)
+
+    # print('planes', len(planes[0]))
+    # print('dot product', planes)
+    #print('normals', allnormals)
     #downsampledpc.estimate_covariances(downsampledpc, search_param=o3d.geometry.KDTreeSearchParamKNN with knn = 30)
     #cos_angle = (vec1[0] * vec2[0] + vec1[1] * vec2[1]) / math.sqrt((vec1[0]**2 + vec1[1]**2) * (vec2[0]**2 + vec2[1]**2))
-
+    #o3d.visualization.draw_geometries([downsampledpc], point_show_normal=True)
+    
 
 #Get feature 4: Average Height
 def objectAverageHeight(currentPointCloud):
@@ -163,7 +225,7 @@ if __name__ == "__main__":
     #for testing
     #sampleFeatureList = [[0, 50,4,5], [1, 10, 5, 2], [2, 15,4,3], [3, 20,4,5]]
 
-    hc.compare_clusters(object_features, -4)
+    #hc.compare_clusters(object_features, -4)
 
 
 

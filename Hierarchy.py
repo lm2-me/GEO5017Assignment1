@@ -298,12 +298,12 @@ def compare_clusters(npFeatureList, height):
     print('single link clustering done')
     avg_link, avg_cluster_table = hierarchy_avglink_clustering(npFeatureList)
     print('average link clustering done')
-    complete_link, compl_cluster_table = hierarchy_completelink_clustering(npFeatureList)
+    #complete_link, compl_cluster_table = hierarchy_completelink_clustering(npFeatureList)
     print('complete link clustering done')
 
     cut_single_link = single_link[:,(height)]
     cut_avg_link = avg_link[:,(height)]
-    cut_comp_link = complete_link[:,(height)]
+    #cut_comp_link = complete_link[:,(height)]
 
     #print('cut avg link', cut_avg_link)
     #print('cut single link', cut_single_link)
@@ -313,9 +313,9 @@ def compare_clusters(npFeatureList, height):
     print('average link clustering accuracy')
     acc_avg = cc.cluster_accuracy(cut_avg_link)
     print('complete link clustering accuracy')
-    acc_complete = cc.cluster_accuracy(cut_comp_link)
-
-    accuracy_counts = [acc_single, acc_avg, acc_complete]
+    #acc_complete = cc.cluster_accuracy(cut_comp_link)
+    # accuracy_counts = [acc_single, acc_avg, acc_complete]
+    accuracy_counts = [acc_single, acc_avg]
 
     max_id = np.argmax(accuracy_counts)
 
