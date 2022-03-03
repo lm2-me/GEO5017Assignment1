@@ -81,7 +81,7 @@ def allObjectProperties(pointCloudDirectory):
     object_features = []
     print('Evaluating point cloud features')
     for pc in pointCloudDirectory:
-        print ('now working on point cloud', str(pc), end="\r")
+        ###print ('now working on point cloud', str(pc), end="\r")
         #Get current point cloud
         currentPointCloud = currentPC(pointCloudDirectory, pc)
         currentPointCloud_o3d = currento3dPCfile(pc)
@@ -90,17 +90,18 @@ def allObjectProperties(pointCloudDirectory):
         height = objectHeight(currentPointCloud)
         volume = convexHull(currentPointCloud_o3d)
         avg_height = objectAverageHeight(currentPointCloud)
-        area = areaBase(currentPointCloud_o3d)
+        area, ratio = areaBase(currentPointCloud_o3d)
         num_planes = planarityPC(currentPointCloud_o3d)
+        
 
         #remove at end, for testing only
-        if i >=10: break
+        if i >=500: break
 
-        object_features.append([i, height, volume, area, num_planes])
+        object_features.append([i, height, volume, avg_height, area, ratio, num_planes])
         i += 1
         #print(str(i) + " height: " + str(height) + " volume: " + str(volume) + " area: " + str(area) + " num planes: " + str(num_planes))
     
-    print('features length', len(object_features))
+    #print('features length', len(object_features))
 
     cwd = os.getcwd()
     filewd = (cwd[: len(cwd) - 11])
@@ -170,11 +171,21 @@ def planarityPC(pc):
     #get planes with o3d segment_plane
     
     pcarray = np.asarray(pc.points)
+    numpoints = len(pcarray)
+
+    #accuracy
+    p = 0.99
+    #error rate
+    e = 0.9
+    #percision level
+    s = 3
+    #iterations
+    n = int(m.ceil(m.log(1 - p) / m.log(1 - m.pow(1 - e, s))))
 
     while len(np.asarray(allpoints.points)) > .2 * len(pcarray):
         indexes = []
         
-        plane_model, inliers = allpoints.segment_plane(distance_threshold=0.1,ransac_n=3, num_iterations=1000)
+        plane_model, inliers = allpoints.segment_plane(distance_threshold=0.1,ransac_n=3, num_iterations=n)
 
         inlier_cloud = allpoints.select_by_index(inliers)
         inlier_cloud.paint_uniform_color([1.0, 0, 0])
@@ -223,17 +234,72 @@ def areaBase(pc):
     width = max[1] - min[1]
 
     area = length * width   
+    ratio = length / width
     
     bBox.color = (0, 0, 1)
     #o3d.visualization.draw_geometries([pc, bBox])
-    return area
+    return area, ratio
+
+def get_best_features(normalized_object_features):
+    feature_combos = [[1, 2, 3],
+    [1, 2, 4],
+    [1, 2, 5],
+    [1, 2, 6],
+    [1, 3, 4],
+    [1, 3, 5],
+    [1, 3, 6],
+    [1, 4, 5],
+    [1, 4, 6],
+    [1, 5, 6],
+    [2, 3, 4],
+    [2, 3, 5],
+    [2, 3, 6],
+    [2, 4, 5],
+    [2, 4, 6],
+    [2, 5, 6],
+    [3, 4, 5],
+    [3, 4, 6],
+    [3, 5, 6],
+    [4, 5, 6]
+    ]
+
+    for i in feature_combos:
+        column_indexes = np.concatenate(([0], i))
+        feature_test = normalized_object_features[:,column_indexes]
+
+        hc.compare_clusters(feature_test, -4) 
+
+        cluster, dataConsidered = DBSCAN.dbscan(feature_test, [1,2,3], 1.3, 3)
+        print('DBSCAN accuracy')
+        cc.cluster_accuracy(cluster)
+
+        cluster2, centroids, dataConsidered = KMeans.kMeans(feature_test, 5, [1,2,3])
+        print('k-means accuracy')
+        cc.cluster_accuracy(cluster2)
+
+        print('\n\n')
+        print('===========================')
+
+        # cwd = os.getcwd()
+        # filewd = (cwd[: len(cwd) - 11])
+        # #print('file wd' + filewd)
+        # save_features = filewd + 'featureacuracy.txt'
+
+        # with open (save_features, 'w') as f:
+        #     for i in range((len(object_features))):
+        #         f.write(str(object_features[i]) + "\n")
+        # f.close()
+
 
 #Main
 if __name__ == "__main__":
     pointCloudDirectory = importFiles()
     object_features = np.array(allObjectProperties(pointCloudDirectory))
     normalized_object_features = normalize_features(object_features)
-    normalized_features_only = np.delete(normalized_object_features, 0, 1)
+
+    feature_indexs = range(1, len(normalized_object_features))
+
+    #get_best_features(normalized_object_features)
 
     # Hierarchical compare_clusters(data, height to cut dendograph at)
     hc.compare_clusters(normalized_object_features, -4)  
@@ -242,13 +308,13 @@ if __name__ == "__main__":
     #pointcloudsdummy = np.random.randn(800).reshape((100,8))
 
     # DBSCAN - dbscan(data, [features from data], epsilon(radius distance), min number of points in cluster)
-    cluster, dataConsidered = DBSCAN.dbscan(normalized_features_only, [0,1,2,3], 1.3, 3)
+    cluster, dataConsidered = DBSCAN.dbscan(normalized_object_features, feature_indexs, 1.3, 3)
     print('DBSCAN accuracy')
     cc.cluster_accuracy(cluster)
 
 
     # K-means - kMeans(data, k-clusters, [features from dataset])
-    cluster2, centroids, dataConsidered = KMeans.kMeans(normalized_features_only, 5, [0,1,2,3])
+    cluster2, centroids, dataConsidered = KMeans.kMeans(normalized_object_features, 5, feature_indexs)
     print('k-means accuracy')
     cc.cluster_accuracy(cluster2)
 

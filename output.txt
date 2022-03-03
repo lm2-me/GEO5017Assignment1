@@ -1,0 +1,544 @@
+start program for importing files
+new directory changed to : C:\TUDelft_Q3\GEO5017\Assignment1\pointclouds
+Evaluating point cloud features
+Normalizing point cloud features
+single link clustering done
+average link clustering done
+complete link clustering done
+single link clustering accuracy
+correct 104
+incorrect 396
+percentage 0.208
+average link clustering accuracy
+correct 111
+incorrect 389
+percentage 0.222
+complete link clustering accuracy
+correct 192
+incorrect 308
+percentage 0.384
+DBSCAN accuracy
+correct 100
+incorrect 400
+percentage 0.2
+k-means accuracy
+correct 232
+incorrect 268
+percentage 0.464
+
+
+
+===========================
+single link clustering done
+average link clustering done
+complete link clustering done
+single link clustering accuracy
+correct 106
+incorrect 394
+percentage 0.212
+average link clustering accuracy
+correct 116
+incorrect 384
+percentage 0.232
+complete link clustering accuracy
+correct 183
+incorrect 317
+percentage 0.366
+DBSCAN accuracy
+correct 100
+incorrect 400
+percentage 0.2
+k-means accuracy
+correct 219
+incorrect 281
+percentage 0.438
+
+
+
+===========================
+single link clustering done
+average link clustering done
+complete link clustering done
+single link clustering accuracy
+correct 104
+incorrect 396
+percentage 0.208
+average link clustering accuracy
+correct 121
+incorrect 379
+percentage 0.242
+complete link clustering accuracy
+correct 185
+incorrect 315
+percentage 0.37
+DBSCAN accuracy
+correct 100
+incorrect 400
+percentage 0.2
+k-means accuracy
+correct 218
+incorrect 282
+percentage 0.436
+
+
+
+===========================
+single link clustering done
+average link clustering done
+complete link clustering done
+single link clustering accuracy
+correct 104
+incorrect 396
+percentage 0.208
+average link clustering accuracy
+correct 153
+incorrect 347
+percentage 0.306
+complete link clustering accuracy
+correct 185
+incorrect 315
+percentage 0.37
+DBSCAN accuracy
+correct 100
+incorrect 400
+percentage 0.2
+k-means accuracy
+correct 254
+incorrect 246
+percentage 0.508
+
+
+
+===========================
+single link clustering done
+average link clustering done
+complete link clustering done
+single link clustering accuracy
+correct 106
+incorrect 394
+percentage 0.212
+average link clustering accuracy
+correct 196
+incorrect 304
+percentage 0.392
+complete link clustering accuracy
+correct 199
+incorrect 301
+percentage 0.398
+DBSCAN accuracy
+correct 100
+incorrect 400
+percentage 0.2
+k-means accuracy
+correct 230
+incorrect 270
+percentage 0.46
+
+
+
+===========================
+single link clustering done
+average link clustering done
+complete link clustering done
+single link clustering accuracy
+correct 104
+incorrect 396
+percentage 0.208
+average link clustering accuracy
+correct 191
+incorrect 309
+percentage 0.382
+complete link clustering accuracy
+correct 214
+incorrect 286
+percentage 0.428
+DBSCAN accuracy
+correct 100
+incorrect 400
+percentage 0.2
+k-means accuracy
+correct 227
+incorrect 273
+percentage 0.454
+
+
+
+===========================
+single link clustering done
+average link clustering done
+complete link clustering done
+single link clustering accuracy
+correct 106
+incorrect 394
+percentage 0.212
+average link clustering accuracy
+correct 253
+incorrect 247
+percentage 0.506
+complete link clustering accuracy
+correct 233
+incorrect 267
+percentage 0.466
+DBSCAN accuracy
+correct 100
+incorrect 400
+percentage 0.2
+k-means accuracy
+correct 282
+incorrect 218
+percentage 0.564
+
+
+
+===========================
+single link clustering done
+average link clustering done
+complete link clustering done
+single link clustering accuracy
+correct 105
+incorrect 395
+percentage 0.21
+average link clustering accuracy
+correct 128
+incorrect 372
+percentage 0.256
+complete link clustering accuracy
+correct 193
+incorrect 307
+percentage 0.386
+DBSCAN accuracy
+correct 100
+incorrect 400
+percentage 0.2
+k-means accuracy
+correct 230
+incorrect 270
+percentage 0.46
+
+
+
+===========================
+single link clustering done
+average link clustering done
+complete link clustering done
+single link clustering accuracy
+correct 108
+incorrect 392
+percentage 0.216
+average link clustering accuracy
+correct 166
+incorrect 334
+percentage 0.332
+complete link clustering accuracy
+correct 200
+incorrect 300
+percentage 0.4
+DBSCAN accuracy
+correct 100
+incorrect 400
+percentage 0.2
+k-means accuracy
+correct 282
+incorrect 218
+percentage 0.564
+
+
+
+===========================
+single link clustering done
+average link clustering done
+complete link clustering done
+single link clustering accuracy
+correct 107
+incorrect 393
+percentage 0.214
+average link clustering accuracy
+correct 165
+incorrect 335
+percentage 0.33
+complete link clustering accuracy
+correct 235
+incorrect 265
+percentage 0.47
+DBSCAN accuracy
+correct 100
+incorrect 400
+percentage 0.2
+k-means accuracy
+correct 277
+incorrect 223
+percentage 0.554
+
+
+
+===========================
+single link clustering done
+average link clustering done
+complete link clustering done
+single link clustering accuracy
+correct 106
+incorrect 394
+percentage 0.212
+average link clustering accuracy
+correct 113
+incorrect 387
+percentage 0.226
+complete link clustering accuracy
+correct 171
+incorrect 329
+percentage 0.342
+DBSCAN accuracy
+correct 100
+incorrect 400
+percentage 0.2
+k-means accuracy
+correct 219
+incorrect 281
+percentage 0.438
+
+
+
+===========================
+single link clustering done
+average link clustering done
+complete link clustering done
+single link clustering accuracy
+correct 104
+incorrect 396
+percentage 0.208
+average link clustering accuracy
+correct 120
+incorrect 380
+percentage 0.24
+complete link clustering accuracy
+correct 195
+incorrect 305
+percentage 0.39
+DBSCAN accuracy
+correct 100
+incorrect 400
+percentage 0.2
+k-means accuracy
+correct 194
+incorrect 306
+percentage 0.388
+
+
+
+===========================
+single link clustering done
+average link clustering done
+complete link clustering done
+single link clustering accuracy
+correct 104
+incorrect 396
+percentage 0.208
+average link clustering accuracy
+correct 159
+incorrect 341
+percentage 0.318
+complete link clustering accuracy
+correct 267
+incorrect 233
+percentage 0.534
+DBSCAN accuracy
+correct 100
+incorrect 400
+percentage 0.2
+k-means accuracy
+correct 280
+incorrect 220
+percentage 0.56
+
+
+
+===========================
+single link clustering done
+average link clustering done
+complete link clustering done
+single link clustering accuracy
+correct 105
+incorrect 395
+percentage 0.21
+average link clustering accuracy
+correct 115
+incorrect 385
+percentage 0.23
+complete link clustering accuracy
+correct 128
+incorrect 372
+percentage 0.256
+DBSCAN accuracy
+correct 100
+incorrect 400
+percentage 0.2
+k-means accuracy
+correct 153
+incorrect 347
+percentage 0.306
+
+
+
+===========================
+single link clustering done
+average link clustering done
+complete link clustering done
+single link clustering accuracy
+correct 105
+incorrect 395
+percentage 0.21
+average link clustering accuracy
+correct 173
+incorrect 327
+percentage 0.346
+complete link clustering accuracy
+correct 166
+incorrect 334
+percentage 0.332
+DBSCAN accuracy
+correct 100
+incorrect 400
+percentage 0.2
+k-means accuracy
+correct 207
+incorrect 293
+percentage 0.414
+
+
+
+===========================
+single link clustering done
+average link clustering done
+complete link clustering done
+single link clustering accuracy
+correct 104
+incorrect 396
+percentage 0.208
+average link clustering accuracy
+correct 168
+incorrect 332
+percentage 0.336
+complete link clustering accuracy
+correct 187
+incorrect 313
+percentage 0.374
+DBSCAN accuracy
+correct 100
+incorrect 400
+percentage 0.2
+k-means accuracy
+correct 221
+incorrect 279
+percentage 0.442
+
+
+
+===========================
+single link clustering done
+average link clustering done
+complete link clustering done
+single link clustering accuracy
+correct 104
+incorrect 396
+percentage 0.208
+average link clustering accuracy
+correct 127
+incorrect 373
+percentage 0.254
+complete link clustering accuracy
+correct 169
+incorrect 331
+percentage 0.338
+DBSCAN accuracy
+correct 100
+incorrect 400
+percentage 0.2
+k-means accuracy
+correct 201
+incorrect 299
+percentage 0.402
+
+
+
+===========================
+single link clustering done
+average link clustering done
+complete link clustering done
+single link clustering accuracy
+correct 108
+incorrect 392
+percentage 0.216
+average link clustering accuracy
+correct 141
+incorrect 359
+percentage 0.282
+complete link clustering accuracy
+correct 243
+incorrect 257
+percentage 0.486
+DBSCAN accuracy
+correct 100
+incorrect 400
+percentage 0.2
+k-means accuracy
+correct 284
+incorrect 216
+percentage 0.568
+
+
+
+===========================
+single link clustering done
+average link clustering done
+complete link clustering done
+single link clustering accuracy
+correct 106
+incorrect 394
+percentage 0.212
+average link clustering accuracy
+correct 160
+incorrect 340
+percentage 0.32
+complete link clustering accuracy
+correct 231
+incorrect 269
+percentage 0.462
+DBSCAN accuracy
+correct 100
+incorrect 400
+percentage 0.2
+k-means accuracy
+correct 274
+incorrect 226
+percentage 0.548
+
+
+
+===========================
+single link clustering done
+average link clustering done
+complete link clustering done
+single link clustering accuracy
+correct 114
+incorrect 386
+percentage 0.228
+average link clustering accuracy
+correct 174
+incorrect 326
+percentage 0.348
+complete link clustering accuracy
+correct 184
+incorrect 316
+percentage 0.368
+DBSCAN accuracy
+correct 100
+incorrect 400
+percentage 0.2
+k-means accuracy
+correct 226
+incorrect 274
+percentage 0.452
+
+
+
+===========================

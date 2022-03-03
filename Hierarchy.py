@@ -138,7 +138,7 @@ def hierarchy_avglink_clustering(npFeatureList):
     #get 1st distance matrix
     while len(currentPoints) > 1:
         #print('currentpoints', currentPoints)
-        print ('now working on cluster', next_cluster_id-len(npFeatureList), end="\r")
+        ###print ('now working on cluster', next_cluster_id-len(npFeatureList), end="\r")
         dist_matrix, labels = generate_distance_matrix(currentPoints)
         #print(dist_matrix)
 
@@ -198,8 +198,8 @@ def hierarchy_avglink_clustering(npFeatureList):
             #print('index pt', currentPoints[pt])
 
         all_points = np.array(all_points)
-        #update if more than three features
-        mean = np.array([[next_cluster_id, np.mean(all_points[:,0]), np.mean(all_points[:,1]), np.mean(all_points[:,2]), np.mean(all_points[:,3])]])
+
+        mean = [np.concatenate((np.array([next_cluster_id]), np.mean(all_points, axis=0)))]
         #print('mean', mean)
 
         currentPoints = np.append(currentPoints, mean, 0)
@@ -225,7 +225,7 @@ def hierarchy_completelink_clustering(npFeatureList):
 
     #get 1st distance matrix
     while len(currentPoints) > 1:
-        print ('now working on cluster', next_cluster_id-len(npFeatureList), end="\r")
+        ###print ('now working on cluster', next_cluster_id-len(npFeatureList), end="\r")
 
         dist_list = []
         for i in range(dist_matrix.shape[0]):
@@ -268,7 +268,6 @@ def hierarchy_completelink_clustering(npFeatureList):
                 points_in_cluster[next_cluster_id].append(cluster_lookup[c, 0])
             #print("points in cluster", points_in_cluster)
         
-        #get average distance of  new cluster
         #print ('currentpoints here', currentPoints)
         all_points = []
         for pt in points_in_cluster[next_cluster_id]:
@@ -286,23 +285,23 @@ def hierarchy_completelink_clustering(npFeatureList):
 
         # Update dist table
 
-        ## Get indexes of clusters from label ids
+        # Get indexes of clusters from label ids
         cl1_ix = np.where(labels == cl1)[0][0]
         cl2_ix = np.where(labels == cl2)[0][0]
 
-        ## Compute new max col/row for combined cluster
+        # Compute new max col/row for combined cluster
         cl_max_col = np.max(dist_matrix[:, [cl1_ix, cl2_ix]], axis=1).reshape((dist_matrix.shape[0], 1))
         cl_max_row = np.concatenate((np.max(dist_matrix[[cl1_ix, cl2_ix], :], axis=0), [np.Infinity]))
 
-        ## Add col, then row to dist matrix for new combined cluster
+        # Add col, then row to dist matrix for new combined cluster
         dist_matrix = np.hstack((dist_matrix, cl_max_col))
         dist_matrix = np.vstack((dist_matrix, [cl_max_row]))
 
-        ## Remove cols, then rows corresponding to old clusters
+        # Remove cols, then rows corresponding to old clusters
         dist_matrix = np.delete(dist_matrix, [cl1_ix, cl2_ix], 1)
         dist_matrix = np.delete(dist_matrix, [cl1_ix, cl2_ix], 0)
 
-        ## Update labels array
+        # Update labels array
         labels = np.concatenate((labels, [next_cluster_id]))
         labels = np.delete(labels, [cl1_ix, cl2_ix])
 
@@ -342,15 +341,16 @@ def compare_clusters(npFeatureList, height):
 
     max_id = np.argmax(accuracy_counts)
 
-    if max_id == 0:
-        visualize_hierarchy(npFeatureList, cut_single_link, sl_cluster_table, height)
-        return cut_single_link, acc_single
-    elif max_id == 1:
-        visualize_hierarchy(npFeatureList, cut_avg_link, avg_cluster_table, height)
-        return cut_avg_link, acc_avg
-    elif max_id == 2:
-        visualize_hierarchy(npFeatureList, cut_comp_link, compl_cluster_table, height)
-        return cut_comp_link, acc_complete
+    ###
+    # if max_id == 0:
+    #     visualize_hierarchy(npFeatureList, cut_single_link, sl_cluster_table, height)
+    #     return cut_single_link, acc_single
+    # elif max_id == 1:
+    #     visualize_hierarchy(npFeatureList, cut_avg_link, avg_cluster_table, height)
+    #     return cut_avg_link, acc_avg
+    # elif max_id == 2:
+    #     visualize_hierarchy(npFeatureList, cut_comp_link, compl_cluster_table, height)
+    #     return cut_comp_link, acc_complete
 
 #color code points based on which cluster they are in
 def color_coded_cluster(clusters_at_cut_height, height):
