@@ -78,16 +78,29 @@ def allObjectProperties(pointCloudDirectory):
         #Get properties by calling related function
         height = objectHeight(currentPointCloud)
         volume = convexHull(currentPointCloud_o3d)
-        #avg_height = objectAverageHeight(currentPointCloud)
+        avg_height = objectAverageHeight(currentPointCloud)
         area = areaBase(currentPointCloud_o3d)
         num_planes = planarityPC(currentPointCloud_o3d)
 
         #remove at end, for testing only
-        #if i >=10: break
+        if i >=500: break
 
         object_features.append([i, height, volume, area, num_planes])
         i += 1
         #print(str(i) + " height: " + str(height) + " volume: " + str(volume) + " area: " + str(area) + " num planes: " + str(num_planes))
+    
+    print('features length', len(object_features))
+
+    cwd = os.getcwd()
+    filewd = (cwd[: len(cwd) - 11])
+    print('file wd' + filewd)
+    save_features = filewd + 'features1.txt'
+
+    with open (save_features, 'w') as f:
+        for i in range((len(object_features))):
+            f.write(str(object_features[i]) + "\n")
+    f.close()
+
     return object_features
 
 #Get current point cloud and save to new array
@@ -108,7 +121,7 @@ def normalize_features(object_features):
         max = np.max(normalized_feature)
         normalized_feature = normalized_feature / max
         all_normalized_features[:,i] = normalized_feature
-    print(all_normalized_features)
+    #print(all_normalized_features)
     return all_normalized_features
 
 #Get feature 1: Height
@@ -140,7 +153,7 @@ def convexHull(pc):
 #Feature 3: planarity
 def planarityPC(pc):
     #downsample point cloud with open3d to reduce number of points
-    downsampledpc = pc.voxel_down_sample(voxel_size=0.25)
+    #downsampledpc = pc.voxel_down_sample(voxel_size=0.25)
     allpoints = pc
     numplanes = 0
     #get planes with o3d segment_plane
@@ -209,21 +222,23 @@ if __name__ == "__main__":
     pointCloudDirectory = importFiles()
     object_features = np.array(allObjectProperties(pointCloudDirectory))
     normalized_object_features = normalize_features(object_features)
+    normalized_features_only = np.delete(normalized_object_features, 0, 1)
 
+    # Hierarchical compare_clusters(data, height to cut dendograph at)
     hc.compare_clusters(normalized_object_features, -4)  
 
     #temp data generation
     #pointcloudsdummy = np.random.randn(800).reshape((100,8))
 
     # DBSCAN - dbscan(data, [features from data], epsilon(radius distance), min number of points in cluster)
-    cluster, dataConsidered = DBSCAN.dbscan(normalized_object_features, [0,1,3,4,5], 1.3, 3)
-
+    cluster, dataConsidered = DBSCAN.dbscan(normalized_features_only, [0,1,2,3], 1.3, 3)
+    print('DBSCAN accuracy')
     cc.cluster_accuracy(cluster)
 
 
     # K-means - kMeans(data, k-clusters, [features from dataset])
-    cluster2, centroids, dataConsidered = KMeans.kMeans(normalized_object_features,5, [0,1,2,4,5])
-
+    cluster2, centroids, dataConsidered = KMeans.kMeans(normalized_features_only, 5, [0,1,2,3])
+    print('k-means accuracy')
     cc.cluster_accuracy(cluster2)
 
     #show graph of each one
