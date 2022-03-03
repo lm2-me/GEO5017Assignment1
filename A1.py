@@ -35,14 +35,25 @@ def importFiles():
     I also considered Pandas. Also wasn't sure whether a list of list would be annoying.
     This way we can call them specificaly by name, so that might be the easiest when iterating through them.
     """
-
+    pc_names = []
     for i in range(500):
         # print(i)
         number = "00" + str(i)
         three_digit = number[-3:]
         open_array = np.genfromtxt("{0}.xyz".format(three_digit))
         d["pc{0}".format(three_digit)] = open_array
+        pc_names.append("pc{0}".format(three_digit))
     
+    cwd = os.getcwd()
+    filewd = (cwd[: len(cwd) - 11])
+    #print('file wd' + filewd)
+    save_pc = filewd + 'pointclouds.txt'
+
+    with open (save_pc, 'w') as f:
+        for i in range(500):
+            f.write(str(d[pc_names[i]]) + "\n")
+    f.close()
+
     #print(d["pc385"])
     return d
 
@@ -93,7 +104,7 @@ def allObjectProperties(pointCloudDirectory):
 
     cwd = os.getcwd()
     filewd = (cwd[: len(cwd) - 11])
-    print('file wd' + filewd)
+    #print('file wd' + filewd)
     save_features = filewd + 'features1.txt'
 
     with open (save_features, 'w') as f:
