@@ -371,8 +371,14 @@ def color_coded_cluster(clusters_at_cut_height, height):
 def visualize_hierarchy(npFeatureList, clusters_at_cut_height, cluster_table, height):
     #visualize clusters
     colors = color_coded_cluster(clusters_at_cut_height, height)
-    plt.figure(figsize=(10, 7))  
-    plt.scatter(npFeatureList[:,1], npFeatureList[:,2], npFeatureList[:,3], c=colors) 
+
+    plt.figure(figsize=(10, 7)) 
+    ax = plt.axes(projection='3d')
+    plt.title('Group 5 Hierarchical Clustering Scatter Plot')
+    ax.set_xlabel('Feature 1')
+    ax.set_ylabel('Feature 2')
+    ax.set_zlabel('Feature 3')
+    ax.scatter(npFeatureList[:,1], npFeatureList[:,2], npFeatureList[:,3], s=40, c=colors) 
 
 
     #visualize dendrogram of clustering
@@ -380,13 +386,19 @@ def visualize_hierarchy(npFeatureList, clusters_at_cut_height, cluster_table, he
     #cluster_id = len(cluster_table)  - 6
     #clpts = points_in_cluster[cluster_id]
     #print(clpts)
-    visualize_dendrogram(cluster_table, cut_height)
+    visualize_dendrogram(cluster_table, cut_height, clusters_at_cut_height)
     return cluster_table
 
 #dendrogram showing best hierarchical clustering
-def visualize_dendrogram(cluster_table, cut_height):
+def visualize_dendrogram(cluster_table, cut_height, clusters_at_cut_height):
     plt.figure()
-    dendrogram(cluster_table)
+    plt.title('Group 5 Hierarchical Clustering Dendrogram')
+    plt.xlabel('point cloud')
+    plt.ylabel('distance')
+    colors = color_coded_cluster(clusters_at_cut_height, cut_height)
+    link_colors = 0
+    
+    #dendrogram(cluster_table, leaf_rotation=90., leaf_font_size=8.,link_color_func=lambda x: link_colors[x])
     #LM figure out how to make line dashed
-    plt.axhline(y=cut_height, color='r')
+    plt.axhline(y=cut_height)
     plt.show()

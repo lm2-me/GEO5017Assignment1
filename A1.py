@@ -94,7 +94,7 @@ def allObjectProperties(pointCloudDirectory):
         num_planes = planarityPC(currentPointCloud_o3d)
 
         #remove at end, for testing only
-        if i >=500: break
+        if i >=10: break
 
         object_features.append([i, height, volume, area, num_planes])
         i += 1
@@ -105,7 +105,7 @@ def allObjectProperties(pointCloudDirectory):
     cwd = os.getcwd()
     filewd = (cwd[: len(cwd) - 11])
     #print('file wd' + filewd)
-    save_features = filewd + 'features1.txt'
+    save_features = filewd + 'features.txt'
 
     with open (save_features, 'w') as f:
         for i in range((len(object_features))):
