@@ -221,12 +221,11 @@ def hierarchy_completelink_clustering(npFeatureList):
     cluster_lookup = np.array([[f[0], f[0]] for f in npFeatureList])
     points_in_cluster = {}
 
+    dist_matrix, labels = generate_distance_minmax(currentPoints)
+
     #get 1st distance matrix
     while len(currentPoints) > 1:
         print ('now working on cluster', next_cluster_id-len(npFeatureList), end="\r")
-        #print('currentpoints', currentPoints)
-        dist_matrix, labels = generate_distance_minmax(currentPoints)
-        #print(dist_matrix)
 
         dist_list = []
         for i in range(dist_matrix.shape[0]):
@@ -237,13 +236,13 @@ def hierarchy_completelink_clustering(npFeatureList):
                 dist_list.append((dist_matrix[i, j], [l1, l2]))
         
         dist_list.sort()
-        #print(dist_list)
+        # print(dist_list)
 
         dist = dist_list[0] [0]
         cl1 = int(dist_list[0] [1] [0])
         cl2 = int(dist_list[0] [1] [1])
         #print('dist', dist)
-        #print("cl", cl1, cl2)
+        # print("cl", cl1, cl2)
 
         if cl1 == cl2: continue
 
@@ -251,7 +250,6 @@ def hierarchy_completelink_clustering(npFeatureList):
         cluster_table.append([cl1, cl2, dist, total_points])  
         num_points = np.append(num_points, [[next_cluster_id, total_points]], axis=0)
 
-        
         append_cluster = []
 
         #append point_current_cluster to add the number that it is currently in
@@ -286,7 +284,31 @@ def hierarchy_completelink_clustering(npFeatureList):
         new_cluster = [[next_cluster_id, all_points]]
         currentPoints = np.append(currentPoints, new_cluster, 0)
 
-        #print(currentPoints)
+        # Update dist table
+
+        ## Get indexes of clusters from label ids
+        cl1_ix = np.where(labels == cl1)[0][0]
+        cl2_ix = np.where(labels == cl2)[0][0]
+
+        ## Compute new max col/row for combined cluster
+        cl_max_col = np.max(dist_matrix[:, [cl1_ix, cl2_ix]], axis=1).reshape((dist_matrix.shape[0], 1))
+        cl_max_row = np.concatenate((np.max(dist_matrix[[cl1_ix, cl2_ix], :], axis=0), [np.Infinity]))
+
+        ## Add col, then row to dist matrix for new combined cluster
+        dist_matrix = np.hstack((dist_matrix, cl_max_col))
+        dist_matrix = np.vstack((dist_matrix, [cl_max_row]))
+
+        ## Remove cols, then rows corresponding to old clusters
+        dist_matrix = np.delete(dist_matrix, [cl1_ix, cl2_ix], 1)
+        dist_matrix = np.delete(dist_matrix, [cl1_ix, cl2_ix], 0)
+
+        ## Update labels array
+        labels = np.concatenate((labels, [next_cluster_id]))
+        labels = np.delete(labels, [cl1_ix, cl2_ix])
+
+        # dist_matrix_str = '[' + '\n '.join(['[' + ',\t'.join(["{:.2f}".format(v) for v in t]) + ']' for t in dist_matrix]) + ']'
+        # print('')
+        # print(dist_matrix_str, end='\n\n')
 
         next_cluster_id += 1
 
@@ -298,12 +320,12 @@ def compare_clusters(npFeatureList, height):
     print('single link clustering done')
     avg_link, avg_cluster_table = hierarchy_avglink_clustering(npFeatureList)
     print('average link clustering done')
-    #complete_link, compl_cluster_table = hierarchy_completelink_clustering(npFeatureList)
+    complete_link, compl_cluster_table = hierarchy_completelink_clustering(npFeatureList)
     print('complete link clustering done')
 
     cut_single_link = single_link[:,(height)]
     cut_avg_link = avg_link[:,(height)]
-    #cut_comp_link = complete_link[:,(height)]
+    cut_comp_link = complete_link[:,(height)]
 
     #print('cut avg link', cut_avg_link)
     #print('cut single link', cut_single_link)
@@ -313,9 +335,10 @@ def compare_clusters(npFeatureList, height):
     print('average link clustering accuracy')
     acc_avg = cc.cluster_accuracy(cut_avg_link)
     print('complete link clustering accuracy')
-    #acc_complete = cc.cluster_accuracy(cut_comp_link)
-    # accuracy_counts = [acc_single, acc_avg, acc_complete]
-    accuracy_counts = [acc_single, acc_avg]
+    acc_complete = cc.cluster_accuracy(cut_comp_link)
+
+    accuracy_counts = [acc_single, acc_avg, acc_complete]
+    #accuracy_counts = [acc_single, acc_avg]
 
     max_id = np.argmax(accuracy_counts)
 

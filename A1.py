@@ -68,7 +68,9 @@ def currento3dPCfile(pc):
 def allObjectProperties(pointCloudDirectory):
     i = 0
     object_features = []
+    print('Evaluating point cloud features')
     for pc in pointCloudDirectory:
+        print ('now working on point cloud', str(pc), end="\r")
         #Get current point cloud
         currentPointCloud = currentPC(pointCloudDirectory, pc)
         currentPointCloud_o3d = currento3dPCfile(pc)
@@ -81,7 +83,7 @@ def allObjectProperties(pointCloudDirectory):
         num_planes = planarityPC(currentPointCloud_o3d)
 
         #remove at end, for testing only
-        if i >=10: break
+        #if i >=10: break
 
         object_features.append([i, height, volume, area, num_planes])
         i += 1
@@ -98,6 +100,7 @@ def currentPC(pointCloudDirectory, pc):
 
 #normalize features
 def normalize_features(object_features):
+    print('Normalizing point cloud features')
     all_normalized_features = np.copy(object_features)
     for i in range(1, object_features.shape[1]):
         min = np.min(object_features[:,i])
@@ -107,6 +110,7 @@ def normalize_features(object_features):
         all_normalized_features[:,i] = normalized_feature
     print(all_normalized_features)
     return all_normalized_features
+
 #Get feature 1: Height
 def objectHeight(currentPointCloud):
     maxZ = 0
@@ -172,42 +176,6 @@ def planarityPC(pc):
         #o3d.visualization.draw_geometries([allpoints, inlier_cloud])
 
     return numplanes
-    #get planes with normals
-    # downsampledpc.estimate_normals(search_param=o3d.geometry.KDTreeSearchParamHybrid(radius=.5, max_nn=30))
-    
-    # print(downsampledpc.normals[0])
-    
-    # normals = np.asarray(downsampledpc.normals)
-    # print('num normals', len(normals))
-    # planes = {}
-
-    # for i in range(len(normals)):
-    #     for j in range(i+1, len(normals), 1):
-    #         dot = np.dot(normals[i], normals[j])
-    #         if dot > 0.85 and dot <= 1:
-    #             if i not in planes:
-    #                 planes[i] = []
-    #                 planes[i].append(normals[i])
-    #             planes[i].append(normals[j])
-    #             np.delete(normals, j)
-
-    #             if j == len(normals):
-    #                 np.delete(normals, i)
-
-    # points_in_plane = []
-    # print('length planes', len(planes))
-    # for p in planes:
-    #     points_in_plane.append(len(planes[p]))
-
-    # print('points in plane', points_in_plane)
-
-    # print('planes', len(planes[0]))
-    # print('dot product', planes)
-    #print('normals', allnormals)
-    #downsampledpc.estimate_covariances(downsampledpc, search_param=o3d.geometry.KDTreeSearchParamKNN with knn = 30)
-    #cos_angle = (vec1[0] * vec2[0] + vec1[1] * vec2[1]) / math.sqrt((vec1[0]**2 + vec1[1]**2) * (vec2[0]**2 + vec2[1]**2))
-    #o3d.visualization.draw_geometries([downsampledpc], point_show_normal=True)
-    
 
 #Get feature 4: Average Height
 def objectAverageHeight(currentPointCloud):
@@ -245,16 +213,16 @@ if __name__ == "__main__":
     hc.compare_clusters(normalized_object_features, -4)  
 
     #temp data generation
-    pointcloudsdummy = np.random.randn(800).reshape((100,8))
+    #pointcloudsdummy = np.random.randn(800).reshape((100,8))
 
     # DBSCAN - dbscan(data, [features from data], epsilon(radius distance), min number of points in cluster)
-    cluster, dataConsidered = DBSCAN.dbscan(pointcloudsdummy, [0,1,3,4,5], 1.3, 3)
+    cluster, dataConsidered = DBSCAN.dbscan(normalized_object_features, [0,1,3,4,5], 1.3, 3)
 
     cc.cluster_accuracy(cluster)
 
 
     # K-means - kMeans(data, k-clusters, [features from dataset])
-    cluster2, centroids, dataConsidered = KMeans.kMeans(pointcloudsdummy,5, [0,1,2,4,5])
+    cluster2, centroids, dataConsidered = KMeans.kMeans(normalized_object_features,5, [0,1,2,4,5])
 
     cc.cluster_accuracy(cluster2)
 
