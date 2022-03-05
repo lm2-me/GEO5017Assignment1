@@ -1,0 +1,960 @@
+correct 137
+incorrect 363
+percentage 0.274
+this was round 1. Epsilon: 0.04. minPts: 5. Accuracy: 0.274. Data_combo: [[1, 2, 3]]
+correct 149
+incorrect 351
+percentage 0.298
+this was round 2. Epsilon: 0.04. minPts: 5. Accuracy: 0.298. Data_combo: [[1, 2, 4]]
+correct 148
+incorrect 352
+percentage 0.296
+this was round 3. Epsilon: 0.04. minPts: 5. Accuracy: 0.296. Data_combo: [[1, 2, 5]]
+correct 190
+incorrect 310
+percentage 0.38
+this was round 4. Epsilon: 0.04. minPts: 5. Accuracy: 0.38. Data_combo: [[1, 2, 6]]
+correct 133
+incorrect 367
+percentage 0.266
+this was round 5. Epsilon: 0.04. minPts: 5. Accuracy: 0.266. Data_combo: [[1, 3, 4]]
+correct 130
+incorrect 370
+percentage 0.26
+this was round 6. Epsilon: 0.04. minPts: 5. Accuracy: 0.26. Data_combo: [[1, 3, 5]]
+correct 187
+incorrect 313
+percentage 0.374
+this was round 7. Epsilon: 0.04. minPts: 5. Accuracy: 0.374. Data_combo: [[1, 3, 6]]
+correct 159
+incorrect 341
+percentage 0.318
+this was round 8. Epsilon: 0.04. minPts: 5. Accuracy: 0.318. Data_combo: [[1, 4, 5]]
+correct 177
+incorrect 323
+percentage 0.354
+this was round 9. Epsilon: 0.04. minPts: 5. Accuracy: 0.354. Data_combo: [[1, 4, 6]]
+correct 169
+incorrect 331
+percentage 0.338
+this was round 10. Epsilon: 0.04. minPts: 5. Accuracy: 0.338. Data_combo: [[1, 5, 6]]
+correct 147
+incorrect 353
+percentage 0.294
+this was round 11. Epsilon: 0.04. minPts: 5. Accuracy: 0.294. Data_combo: [[2, 3, 4]]
+correct 153
+incorrect 347
+percentage 0.306
+this was round 12. Epsilon: 0.04. minPts: 5. Accuracy: 0.306. Data_combo: [[2, 3, 5]]
+correct 193
+incorrect 307
+percentage 0.386
+this was round 13. Epsilon: 0.04. minPts: 5. Accuracy: 0.386. Data_combo: [[2, 3, 6]]
+correct 145
+incorrect 355
+percentage 0.29
+this was round 14. Epsilon: 0.04. minPts: 5. Accuracy: 0.29. Data_combo: [[2, 4, 5]]
+correct 140
+incorrect 360
+percentage 0.28
+this was round 15. Epsilon: 0.04. minPts: 5. Accuracy: 0.28. Data_combo: [[2, 4, 6]]
+correct 139
+incorrect 361
+percentage 0.278
+this was round 16. Epsilon: 0.04. minPts: 5. Accuracy: 0.278. Data_combo: [[2, 5, 6]]
+correct 170
+incorrect 330
+percentage 0.34
+this was round 17. Epsilon: 0.04. minPts: 5. Accuracy: 0.34. Data_combo: [[3, 4, 5]]
+correct 182
+incorrect 318
+percentage 0.364
+this was round 18. Epsilon: 0.04. minPts: 5. Accuracy: 0.364. Data_combo: [[3, 4, 6]]
+correct 179
+incorrect 321
+percentage 0.358
+this was round 19. Epsilon: 0.04. minPts: 5. Accuracy: 0.358. Data_combo: [[3, 5, 6]]
+correct 148
+incorrect 352
+percentage 0.296
+this was round 20. Epsilon: 0.04. minPts: 5. Accuracy: 0.296. Data_combo: [[4, 5, 6]]
+correct 144
+incorrect 356
+percentage 0.288
+this was round 21. Epsilon: 0.04. minPts: 7. Accuracy: 0.288. Data_combo: [[1, 2, 3]]
+correct 158
+incorrect 342
+percentage 0.316
+this was round 22. Epsilon: 0.04. minPts: 7. Accuracy: 0.316. Data_combo: [[1, 2, 4]]
+correct 149
+incorrect 351
+percentage 0.298
+this was round 23. Epsilon: 0.04. minPts: 7. Accuracy: 0.298. Data_combo: [[1, 2, 5]]
+correct 191
+incorrect 309
+percentage 0.382
+this was round 24. Epsilon: 0.04. minPts: 7. Accuracy: 0.382. Data_combo: [[1, 2, 6]]
+correct 140
+incorrect 360
+percentage 0.28
+this was round 25. Epsilon: 0.04. minPts: 7. Accuracy: 0.28. Data_combo: [[1, 3, 4]]
+correct 132
+incorrect 368
+percentage 0.264
+this was round 26. Epsilon: 0.04. minPts: 7. Accuracy: 0.264. Data_combo: [[1, 3, 5]]
+correct 263
+incorrect 237
+percentage 0.526
+this was round 27. Epsilon: 0.04. minPts: 7. Accuracy: 0.526. Data_combo: [[1, 3, 6]]
+correct 158
+incorrect 342
+percentage 0.316
+this was round 28. Epsilon: 0.04. minPts: 7. Accuracy: 0.316. Data_combo: [[1, 4, 5]]
+correct 196
+incorrect 304
+percentage 0.392
+this was round 29. Epsilon: 0.04. minPts: 7. Accuracy: 0.392. Data_combo: [[1, 4, 6]]
+correct 181
+incorrect 319
+percentage 0.362
+this was round 30. Epsilon: 0.04. minPts: 7. Accuracy: 0.362. Data_combo: [[1, 5, 6]]
+correct 151
+incorrect 349
+percentage 0.302
+this was round 31. Epsilon: 0.04. minPts: 7. Accuracy: 0.302. Data_combo: [[2, 3, 4]]
+correct 153
+incorrect 347
+percentage 0.306
+this was round 32. Epsilon: 0.04. minPts: 7. Accuracy: 0.306. Data_combo: [[2, 3, 5]]
+correct 195
+incorrect 305
+percentage 0.39
+this was round 33. Epsilon: 0.04. minPts: 7. Accuracy: 0.39. Data_combo: [[2, 3, 6]]
+correct 142
+incorrect 358
+percentage 0.284
+this was round 34. Epsilon: 0.04. minPts: 7. Accuracy: 0.284. Data_combo: [[2, 4, 5]]
+correct 138
+incorrect 362
+percentage 0.276
+this was round 35. Epsilon: 0.04. minPts: 7. Accuracy: 0.276. Data_combo: [[2, 4, 6]]
+correct 138
+incorrect 362
+percentage 0.276
+this was round 36. Epsilon: 0.04. minPts: 7. Accuracy: 0.276. Data_combo: [[2, 5, 6]]
+correct 167
+incorrect 333
+percentage 0.334
+this was round 37. Epsilon: 0.04. minPts: 7. Accuracy: 0.334. Data_combo: [[3, 4, 5]]
+correct 195
+incorrect 305
+percentage 0.39
+this was round 38. Epsilon: 0.04. minPts: 7. Accuracy: 0.39. Data_combo: [[3, 4, 6]]
+correct 195
+incorrect 305
+percentage 0.39
+this was round 39. Epsilon: 0.04. minPts: 7. Accuracy: 0.39. Data_combo: [[3, 5, 6]]
+correct 182
+incorrect 318
+percentage 0.364
+this was round 40. Epsilon: 0.04. minPts: 7. Accuracy: 0.364. Data_combo: [[4, 5, 6]]
+correct 151
+incorrect 349
+percentage 0.302
+this was round 41. Epsilon: 0.04. minPts: 9. Accuracy: 0.302. Data_combo: [[1, 2, 3]]
+correct 159
+incorrect 341
+percentage 0.318
+this was round 42. Epsilon: 0.04. minPts: 9. Accuracy: 0.318. Data_combo: [[1, 2, 4]]
+correct 153
+incorrect 347
+percentage 0.306
+this was round 43. Epsilon: 0.04. minPts: 9. Accuracy: 0.306. Data_combo: [[1, 2, 5]]
+correct 199
+incorrect 301
+percentage 0.398
+this was round 44. Epsilon: 0.04. minPts: 9. Accuracy: 0.398. Data_combo: [[1, 2, 6]]
+correct 140
+incorrect 360
+percentage 0.28
+this was round 45. Epsilon: 0.04. minPts: 9. Accuracy: 0.28. Data_combo: [[1, 3, 4]]
+correct 130
+incorrect 370
+percentage 0.26
+this was round 46. Epsilon: 0.04. minPts: 9. Accuracy: 0.26. Data_combo: [[1, 3, 5]]
+correct 248
+incorrect 252
+percentage 0.496
+this was round 47. Epsilon: 0.04. minPts: 9. Accuracy: 0.496. Data_combo: [[1, 3, 6]]
+correct 160
+incorrect 340
+percentage 0.32
+this was round 48. Epsilon: 0.04. minPts: 9. Accuracy: 0.32. Data_combo: [[1, 4, 5]]
+correct 198
+incorrect 302
+percentage 0.396
+this was round 49. Epsilon: 0.04. minPts: 9. Accuracy: 0.396. Data_combo: [[1, 4, 6]]
+correct 199
+incorrect 301
+percentage 0.398
+this was round 50. Epsilon: 0.04. minPts: 9. Accuracy: 0.398. Data_combo: [[1, 5, 6]]
+correct 166
+incorrect 334
+percentage 0.332
+this was round 51. Epsilon: 0.04. minPts: 9. Accuracy: 0.332. Data_combo: [[2, 3, 4]]
+correct 154
+incorrect 346
+percentage 0.308
+this was round 52. Epsilon: 0.04. minPts: 9. Accuracy: 0.308. Data_combo: [[2, 3, 5]]
+correct 198
+incorrect 302
+percentage 0.396
+this was round 53. Epsilon: 0.04. minPts: 9. Accuracy: 0.396. Data_combo: [[2, 3, 6]]
+correct 145
+incorrect 355
+percentage 0.29
+this was round 54. Epsilon: 0.04. minPts: 9. Accuracy: 0.29. Data_combo: [[2, 4, 5]]
+correct 170
+incorrect 330
+percentage 0.34
+this was round 55. Epsilon: 0.04. minPts: 9. Accuracy: 0.34. Data_combo: [[2, 4, 6]]
+correct 164
+incorrect 336
+percentage 0.328
+this was round 56. Epsilon: 0.04. minPts: 9. Accuracy: 0.328. Data_combo: [[2, 5, 6]]
+correct 168
+incorrect 332
+percentage 0.336
+this was round 57. Epsilon: 0.04. minPts: 9. Accuracy: 0.336. Data_combo: [[3, 4, 5]]
+correct 196
+incorrect 304
+percentage 0.392
+this was round 58. Epsilon: 0.04. minPts: 9. Accuracy: 0.392. Data_combo: [[3, 4, 6]]
+correct 193
+incorrect 307
+percentage 0.386
+this was round 59. Epsilon: 0.04. minPts: 9. Accuracy: 0.386. Data_combo: [[3, 5, 6]]
+correct 200
+incorrect 300
+percentage 0.4
+this was round 60. Epsilon: 0.04. minPts: 9. Accuracy: 0.4. Data_combo: [[4, 5, 6]]
+correct 130
+incorrect 370
+percentage 0.26
+this was round 61. Epsilon: 0.045. minPts: 5. Accuracy: 0.26. Data_combo: [[1, 2, 3]]
+correct 139
+incorrect 361
+percentage 0.278
+this was round 62. Epsilon: 0.045. minPts: 5. Accuracy: 0.278. Data_combo: [[1, 2, 4]]
+correct 151
+incorrect 349
+percentage 0.302
+this was round 63. Epsilon: 0.045. minPts: 5. Accuracy: 0.302. Data_combo: [[1, 2, 5]]
+correct 190
+incorrect 310
+percentage 0.38
+this was round 64. Epsilon: 0.045. minPts: 5. Accuracy: 0.38. Data_combo: [[1, 2, 6]]
+correct 133
+incorrect 367
+percentage 0.266
+this was round 65. Epsilon: 0.045. minPts: 5. Accuracy: 0.266. Data_combo: [[1, 3, 4]]
+correct 130
+incorrect 370
+percentage 0.26
+this was round 66. Epsilon: 0.045. minPts: 5. Accuracy: 0.26. Data_combo: [[1, 3, 5]]
+correct 178
+incorrect 322
+percentage 0.356
+this was round 67. Epsilon: 0.045. minPts: 5. Accuracy: 0.356. Data_combo: [[1, 3, 6]]
+correct 155
+incorrect 345
+percentage 0.31
+this was round 68. Epsilon: 0.045. minPts: 5. Accuracy: 0.31. Data_combo: [[1, 4, 5]]
+correct 177
+incorrect 323
+percentage 0.354
+this was round 69. Epsilon: 0.045. minPts: 5. Accuracy: 0.354. Data_combo: [[1, 4, 6]]
+correct 168
+incorrect 332
+percentage 0.336
+this was round 70. Epsilon: 0.045. minPts: 5. Accuracy: 0.336. Data_combo: [[1, 5, 6]]
+correct 139
+incorrect 361
+percentage 0.278
+this was round 71. Epsilon: 0.045. minPts: 5. Accuracy: 0.278. Data_combo: [[2, 3, 4]]
+correct 152
+incorrect 348
+percentage 0.304
+this was round 72. Epsilon: 0.045. minPts: 5. Accuracy: 0.304. Data_combo: [[2, 3, 5]]
+correct 198
+incorrect 302
+percentage 0.396
+this was round 73. Epsilon: 0.045. minPts: 5. Accuracy: 0.396. Data_combo: [[2, 3, 6]]
+correct 141
+incorrect 359
+percentage 0.282
+this was round 74. Epsilon: 0.045. minPts: 5. Accuracy: 0.282. Data_combo: [[2, 4, 5]]
+correct 142
+incorrect 358
+percentage 0.284
+this was round 75. Epsilon: 0.045. minPts: 5. Accuracy: 0.284. Data_combo: [[2, 4, 6]]
+correct 141
+incorrect 359
+percentage 0.282
+this was round 76. Epsilon: 0.045. minPts: 5. Accuracy: 0.282. Data_combo: [[2, 5, 6]]
+correct 162
+incorrect 338
+percentage 0.324
+this was round 77. Epsilon: 0.045. minPts: 5. Accuracy: 0.324. Data_combo: [[3, 4, 5]]
+correct 185
+incorrect 315
+percentage 0.37
+this was round 78. Epsilon: 0.045. minPts: 5. Accuracy: 0.37. Data_combo: [[3, 4, 6]]
+correct 183
+incorrect 317
+percentage 0.366
+this was round 79. Epsilon: 0.045. minPts: 5. Accuracy: 0.366. Data_combo: [[3, 5, 6]]
+correct 148
+incorrect 352
+percentage 0.296
+this was round 80. Epsilon: 0.045. minPts: 5. Accuracy: 0.296. Data_combo: [[4, 5, 6]]
+correct 133
+incorrect 367
+percentage 0.266
+this was round 81. Epsilon: 0.045. minPts: 7. Accuracy: 0.266. Data_combo: [[1, 2, 3]]
+correct 141
+incorrect 359
+percentage 0.282
+this was round 82. Epsilon: 0.045. minPts: 7. Accuracy: 0.282. Data_combo: [[1, 2, 4]]
+correct 152
+incorrect 348
+percentage 0.304
+this was round 83. Epsilon: 0.045. minPts: 7. Accuracy: 0.304. Data_combo: [[1, 2, 5]]
+correct 193
+incorrect 307
+percentage 0.386
+this was round 84. Epsilon: 0.045. minPts: 7. Accuracy: 0.386. Data_combo: [[1, 2, 6]]
+correct 128
+incorrect 372
+percentage 0.256
+this was round 85. Epsilon: 0.045. minPts: 7. Accuracy: 0.256. Data_combo: [[1, 3, 4]]
+correct 130
+incorrect 370
+percentage 0.26
+this was round 86. Epsilon: 0.045. minPts: 7. Accuracy: 0.26. Data_combo: [[1, 3, 5]]
+correct 185
+incorrect 315
+percentage 0.37
+this was round 87. Epsilon: 0.045. minPts: 7. Accuracy: 0.37. Data_combo: [[1, 3, 6]]
+correct 155
+incorrect 345
+percentage 0.31
+this was round 88. Epsilon: 0.045. minPts: 7. Accuracy: 0.31. Data_combo: [[1, 4, 5]]
+correct 195
+incorrect 305
+percentage 0.39
+this was round 89. Epsilon: 0.045. minPts: 7. Accuracy: 0.39. Data_combo: [[1, 4, 6]]
+correct 171
+incorrect 329
+percentage 0.342
+this was round 90. Epsilon: 0.045. minPts: 7. Accuracy: 0.342. Data_combo: [[1, 5, 6]]
+correct 145
+incorrect 355
+percentage 0.29
+this was round 91. Epsilon: 0.045. minPts: 7. Accuracy: 0.29. Data_combo: [[2, 3, 4]]
+correct 153
+incorrect 347
+percentage 0.306
+this was round 92. Epsilon: 0.045. minPts: 7. Accuracy: 0.306. Data_combo: [[2, 3, 5]]
+correct 196
+incorrect 304
+percentage 0.392
+this was round 93. Epsilon: 0.045. minPts: 7. Accuracy: 0.392. Data_combo: [[2, 3, 6]]
+correct 143
+incorrect 357
+percentage 0.286
+this was round 94. Epsilon: 0.045. minPts: 7. Accuracy: 0.286. Data_combo: [[2, 4, 5]]
+correct 138
+incorrect 362
+percentage 0.276
+this was round 95. Epsilon: 0.045. minPts: 7. Accuracy: 0.276. Data_combo: [[2, 4, 6]]
+correct 136
+incorrect 364
+percentage 0.272
+this was round 96. Epsilon: 0.045. minPts: 7. Accuracy: 0.272. Data_combo: [[2, 5, 6]]
+correct 163
+incorrect 337
+percentage 0.326
+this was round 97. Epsilon: 0.045. minPts: 7. Accuracy: 0.326. Data_combo: [[3, 4, 5]]
+correct 199
+incorrect 301
+percentage 0.398
+this was round 98. Epsilon: 0.045. minPts: 7. Accuracy: 0.398. Data_combo: [[3, 4, 6]]
+correct 181
+incorrect 319
+percentage 0.362
+this was round 99. Epsilon: 0.045. minPts: 7. Accuracy: 0.362. Data_combo: [[3, 5, 6]]
+correct 180
+incorrect 320
+percentage 0.36
+this was round 100. Epsilon: 0.045. minPts: 7. Accuracy: 0.36. Data_combo: [[4, 5, 6]]
+correct 140
+incorrect 360
+percentage 0.28
+this was round 101. Epsilon: 0.045. minPts: 9. Accuracy: 0.28. Data_combo: [[1, 2, 3]]
+correct 155
+incorrect 345
+percentage 0.31
+this was round 102. Epsilon: 0.045. minPts: 9. Accuracy: 0.31. Data_combo: [[1, 2, 4]]
+correct 150
+incorrect 350
+percentage 0.3
+this was round 103. Epsilon: 0.045. minPts: 9. Accuracy: 0.3. Data_combo: [[1, 2, 5]]
+correct 207
+incorrect 293
+percentage 0.414
+this was round 104. Epsilon: 0.045. minPts: 9. Accuracy: 0.414. Data_combo: [[1, 2, 6]]
+correct 131
+incorrect 369
+percentage 0.262
+this was round 105. Epsilon: 0.045. minPts: 9. Accuracy: 0.262. Data_combo: [[1, 3, 4]]
+correct 128
+incorrect 372
+percentage 0.256
+this was round 106. Epsilon: 0.045. minPts: 9. Accuracy: 0.256. Data_combo: [[1, 3, 5]]
+correct 195
+incorrect 305
+percentage 0.39
+this was round 107. Epsilon: 0.045. minPts: 9. Accuracy: 0.39. Data_combo: [[1, 3, 6]]
+correct 156
+incorrect 344
+percentage 0.312
+this was round 108. Epsilon: 0.045. minPts: 9. Accuracy: 0.312. Data_combo: [[1, 4, 5]]
+correct 196
+incorrect 304
+percentage 0.392
+this was round 109. Epsilon: 0.045. minPts: 9. Accuracy: 0.392. Data_combo: [[1, 4, 6]]
+correct 192
+incorrect 308
+percentage 0.384
+this was round 110. Epsilon: 0.045. minPts: 9. Accuracy: 0.384. Data_combo: [[1, 5, 6]]
+correct 145
+incorrect 355
+percentage 0.29
+this was round 111. Epsilon: 0.045. minPts: 9. Accuracy: 0.29. Data_combo: [[2, 3, 4]]
+correct 152
+incorrect 348
+percentage 0.304
+this was round 112. Epsilon: 0.045. minPts: 9. Accuracy: 0.304. Data_combo: [[2, 3, 5]]
+correct 198
+incorrect 302
+percentage 0.396
+this was round 113. Epsilon: 0.045. minPts: 9. Accuracy: 0.396. Data_combo: [[2, 3, 6]]
+correct 141
+incorrect 359
+percentage 0.282
+this was round 114. Epsilon: 0.045. minPts: 9. Accuracy: 0.282. Data_combo: [[2, 4, 5]]
+correct 172
+incorrect 328
+percentage 0.344
+this was round 115. Epsilon: 0.045. minPts: 9. Accuracy: 0.344. Data_combo: [[2, 4, 6]]
+correct 165
+incorrect 335
+percentage 0.33
+this was round 116. Epsilon: 0.045. minPts: 9. Accuracy: 0.33. Data_combo: [[2, 5, 6]]
+correct 160
+incorrect 340
+percentage 0.32
+this was round 117. Epsilon: 0.045. minPts: 9. Accuracy: 0.32. Data_combo: [[3, 4, 5]]
+correct 195
+incorrect 305
+percentage 0.39
+this was round 118. Epsilon: 0.045. minPts: 9. Accuracy: 0.39. Data_combo: [[3, 4, 6]]
+correct 192
+incorrect 308
+percentage 0.384
+this was round 119. Epsilon: 0.045. minPts: 9. Accuracy: 0.384. Data_combo: [[3, 5, 6]]
+correct 196
+incorrect 304
+percentage 0.392
+this was round 120. Epsilon: 0.045. minPts: 9. Accuracy: 0.392. Data_combo: [[4, 5, 6]]
+correct 132
+incorrect 368
+percentage 0.264
+this was round 121. Epsilon: 0.049999999999999996. minPts: 5. Accuracy: 0.264. Data_combo: [[1, 2, 3]]
+correct 135
+incorrect 365
+percentage 0.27
+this was round 122. Epsilon: 0.049999999999999996. minPts: 5. Accuracy: 0.27. Data_combo: [[1, 2, 4]]
+correct 145
+incorrect 355
+percentage 0.29
+this was round 123. Epsilon: 0.049999999999999996. minPts: 5. Accuracy: 0.29. Data_combo: [[1, 2, 5]]
+correct 176
+incorrect 324
+percentage 0.352
+this was round 124. Epsilon: 0.049999999999999996. minPts: 5. Accuracy: 0.352. Data_combo: [[1, 2, 6]]
+correct 136
+incorrect 364
+percentage 0.272
+this was round 125. Epsilon: 0.049999999999999996. minPts: 5. Accuracy: 0.272. Data_combo: [[1, 3, 4]]
+correct 135
+incorrect 365
+percentage 0.27
+this was round 126. Epsilon: 0.049999999999999996. minPts: 5. Accuracy: 0.27. Data_combo: [[1, 3, 5]]
+correct 179
+incorrect 321
+percentage 0.358
+this was round 127. Epsilon: 0.049999999999999996. minPts: 5. Accuracy: 0.358. Data_combo: [[1, 3, 6]]
+correct 148
+incorrect 352
+percentage 0.296
+this was round 128. Epsilon: 0.049999999999999996. minPts: 5. Accuracy: 0.296. Data_combo: [[1, 4, 5]]
+correct 179
+incorrect 321
+percentage 0.358
+this was round 129. Epsilon: 0.049999999999999996. minPts: 5. Accuracy: 0.358. Data_combo: [[1, 4, 6]]
+correct 159
+incorrect 341
+percentage 0.318
+this was round 130. Epsilon: 0.049999999999999996. minPts: 5. Accuracy: 0.318. Data_combo: [[1, 5, 6]]
+correct 135
+incorrect 365
+percentage 0.27
+this was round 131. Epsilon: 0.049999999999999996. minPts: 5. Accuracy: 0.27. Data_combo: [[2, 3, 4]]
+correct 146
+incorrect 354
+percentage 0.292
+this was round 132. Epsilon: 0.049999999999999996. minPts: 5. Accuracy: 0.292. Data_combo: [[2, 3, 5]]
+correct 178
+incorrect 322
+percentage 0.356
+this was round 133. Epsilon: 0.049999999999999996. minPts: 5. Accuracy: 0.356. Data_combo: [[2, 3, 6]]
+correct 139
+incorrect 361
+percentage 0.278
+this was round 134. Epsilon: 0.049999999999999996. minPts: 5. Accuracy: 0.278. Data_combo: [[2, 4, 5]]
+correct 148
+incorrect 352
+percentage 0.296
+this was round 135. Epsilon: 0.049999999999999996. minPts: 5. Accuracy: 0.296. Data_combo: [[2, 4, 6]]
+correct 138
+incorrect 362
+percentage 0.276
+this was round 136. Epsilon: 0.049999999999999996. minPts: 5. Accuracy: 0.276. Data_combo: [[2, 5, 6]]
+correct 155
+incorrect 345
+percentage 0.31
+this was round 137. Epsilon: 0.049999999999999996. minPts: 5. Accuracy: 0.31. Data_combo: [[3, 4, 5]]
+correct 179
+incorrect 321
+percentage 0.358
+this was round 138. Epsilon: 0.049999999999999996. minPts: 5. Accuracy: 0.358. Data_combo: [[3, 4, 6]]
+correct 173
+incorrect 327
+percentage 0.346
+this was round 139. Epsilon: 0.049999999999999996. minPts: 5. Accuracy: 0.346. Data_combo: [[3, 5, 6]]
+correct 151
+incorrect 349
+percentage 0.302
+this was round 140. Epsilon: 0.049999999999999996. minPts: 5. Accuracy: 0.302. Data_combo: [[4, 5, 6]]
+correct 128
+incorrect 372
+percentage 0.256
+this was round 141. Epsilon: 0.049999999999999996. minPts: 7. Accuracy: 0.256. Data_combo: [[1, 2, 3]]
+correct 134
+incorrect 366
+percentage 0.268
+this was round 142. Epsilon: 0.049999999999999996. minPts: 7. Accuracy: 0.268. Data_combo: [[1, 2, 4]]
+correct 146
+incorrect 354
+percentage 0.292
+this was round 143. Epsilon: 0.049999999999999996. minPts: 7. Accuracy: 0.292. Data_combo: [[1, 2, 5]]
+correct 176
+incorrect 324
+percentage 0.352
+this was round 144. Epsilon: 0.049999999999999996. minPts: 7. Accuracy: 0.352. Data_combo: [[1, 2, 6]]
+correct 128
+incorrect 372
+percentage 0.256
+this was round 145. Epsilon: 0.049999999999999996. minPts: 7. Accuracy: 0.256. Data_combo: [[1, 3, 4]]
+correct 129
+incorrect 371
+percentage 0.258
+this was round 146. Epsilon: 0.049999999999999996. minPts: 7. Accuracy: 0.258. Data_combo: [[1, 3, 5]]
+correct 180
+incorrect 320
+percentage 0.36
+this was round 147. Epsilon: 0.049999999999999996. minPts: 7. Accuracy: 0.36. Data_combo: [[1, 3, 6]]
+correct 153
+incorrect 347
+percentage 0.306
+this was round 148. Epsilon: 0.049999999999999996. minPts: 7. Accuracy: 0.306. Data_combo: [[1, 4, 5]]
+correct 175
+incorrect 325
+percentage 0.35
+this was round 149. Epsilon: 0.049999999999999996. minPts: 7. Accuracy: 0.35. Data_combo: [[1, 4, 6]]
+correct 170
+incorrect 330
+percentage 0.34
+this was round 150. Epsilon: 0.049999999999999996. minPts: 7. Accuracy: 0.34. Data_combo: [[1, 5, 6]]
+correct 138
+incorrect 362
+percentage 0.276
+this was round 151. Epsilon: 0.049999999999999996. minPts: 7. Accuracy: 0.276. Data_combo: [[2, 3, 4]]
+correct 150
+incorrect 350
+percentage 0.3
+this was round 152. Epsilon: 0.049999999999999996. minPts: 7. Accuracy: 0.3. Data_combo: [[2, 3, 5]]
+correct 179
+incorrect 321
+percentage 0.358
+this was round 153. Epsilon: 0.049999999999999996. minPts: 7. Accuracy: 0.358. Data_combo: [[2, 3, 6]]
+correct 137
+incorrect 363
+percentage 0.274
+this was round 154. Epsilon: 0.049999999999999996. minPts: 7. Accuracy: 0.274. Data_combo: [[2, 4, 5]]
+correct 137
+incorrect 363
+percentage 0.274
+this was round 155. Epsilon: 0.049999999999999996. minPts: 7. Accuracy: 0.274. Data_combo: [[2, 4, 6]]
+correct 135
+incorrect 365
+percentage 0.27
+this was round 156. Epsilon: 0.049999999999999996. minPts: 7. Accuracy: 0.27. Data_combo: [[2, 5, 6]]
+correct 161
+incorrect 339
+percentage 0.322
+this was round 157. Epsilon: 0.049999999999999996. minPts: 7. Accuracy: 0.322. Data_combo: [[3, 4, 5]]
+correct 196
+incorrect 304
+percentage 0.392
+this was round 158. Epsilon: 0.049999999999999996. minPts: 7. Accuracy: 0.392. Data_combo: [[3, 4, 6]]
+correct 182
+incorrect 318
+percentage 0.364
+this was round 159. Epsilon: 0.049999999999999996. minPts: 7. Accuracy: 0.364. Data_combo: [[3, 5, 6]]
+correct 166
+incorrect 334
+percentage 0.332
+this was round 160. Epsilon: 0.049999999999999996. minPts: 7. Accuracy: 0.332. Data_combo: [[4, 5, 6]]
+correct 131
+incorrect 369
+percentage 0.262
+this was round 161. Epsilon: 0.049999999999999996. minPts: 9. Accuracy: 0.262. Data_combo: [[1, 2, 3]]
+correct 137
+incorrect 363
+percentage 0.274
+this was round 162. Epsilon: 0.049999999999999996. minPts: 9. Accuracy: 0.274. Data_combo: [[1, 2, 4]]
+correct 146
+incorrect 354
+percentage 0.292
+this was round 163. Epsilon: 0.049999999999999996. minPts: 9. Accuracy: 0.292. Data_combo: [[1, 2, 5]]
+correct 205
+incorrect 295
+percentage 0.41
+this was round 164. Epsilon: 0.049999999999999996. minPts: 9. Accuracy: 0.41. Data_combo: [[1, 2, 6]]
+correct 128
+incorrect 372
+percentage 0.256
+this was round 165. Epsilon: 0.049999999999999996. minPts: 9. Accuracy: 0.256. Data_combo: [[1, 3, 4]]
+correct 133
+incorrect 367
+percentage 0.266
+this was round 166. Epsilon: 0.049999999999999996. minPts: 9. Accuracy: 0.266. Data_combo: [[1, 3, 5]]
+correct 192
+incorrect 308
+percentage 0.384
+this was round 167. Epsilon: 0.049999999999999996. minPts: 9. Accuracy: 0.384. Data_combo: [[1, 3, 6]]
+correct 153
+incorrect 347
+percentage 0.306
+this was round 168. Epsilon: 0.049999999999999996. minPts: 9. Accuracy: 0.306. Data_combo: [[1, 4, 5]]
+correct 195
+incorrect 305
+percentage 0.39
+this was round 169. Epsilon: 0.049999999999999996. minPts: 9. Accuracy: 0.39. Data_combo: [[1, 4, 6]]
+correct 170
+incorrect 330
+percentage 0.34
+this was round 170. Epsilon: 0.049999999999999996. minPts: 9. Accuracy: 0.34. Data_combo: [[1, 5, 6]]
+correct 138
+incorrect 362
+percentage 0.276
+this was round 171. Epsilon: 0.049999999999999996. minPts: 9. Accuracy: 0.276. Data_combo: [[2, 3, 4]]
+correct 148
+incorrect 352
+percentage 0.296
+this was round 172. Epsilon: 0.049999999999999996. minPts: 9. Accuracy: 0.296. Data_combo: [[2, 3, 5]]
+correct 200
+incorrect 300
+percentage 0.4
+this was round 173. Epsilon: 0.049999999999999996. minPts: 9. Accuracy: 0.4. Data_combo: [[2, 3, 6]]
+correct 138
+incorrect 362
+percentage 0.276
+this was round 174. Epsilon: 0.049999999999999996. minPts: 9. Accuracy: 0.276. Data_combo: [[2, 4, 5]]
+correct 164
+incorrect 336
+percentage 0.328
+this was round 175. Epsilon: 0.049999999999999996. minPts: 9. Accuracy: 0.328. Data_combo: [[2, 4, 6]]
+correct 164
+incorrect 336
+percentage 0.328
+this was round 176. Epsilon: 0.049999999999999996. minPts: 9. Accuracy: 0.328. Data_combo: [[2, 5, 6]]
+correct 161
+incorrect 339
+percentage 0.322
+this was round 177. Epsilon: 0.049999999999999996. minPts: 9. Accuracy: 0.322. Data_combo: [[3, 4, 5]]
+correct 195
+incorrect 305
+percentage 0.39
+this was round 178. Epsilon: 0.049999999999999996. minPts: 9. Accuracy: 0.39. Data_combo: [[3, 4, 6]]
+correct 185
+incorrect 315
+percentage 0.37
+this was round 179. Epsilon: 0.049999999999999996. minPts: 9. Accuracy: 0.37. Data_combo: [[3, 5, 6]]
+correct 195
+incorrect 305
+percentage 0.39
+this was round 180. Epsilon: 0.049999999999999996. minPts: 9. Accuracy: 0.39. Data_combo: [[4, 5, 6]]
+correct 127
+incorrect 373
+percentage 0.254
+this was round 181. Epsilon: 0.05499999999999999. minPts: 5. Accuracy: 0.254. Data_combo: [[1, 2, 3]]
+correct 133
+incorrect 367
+percentage 0.266
+this was round 182. Epsilon: 0.05499999999999999. minPts: 5. Accuracy: 0.266. Data_combo: [[1, 2, 4]]
+correct 141
+incorrect 359
+percentage 0.282
+this was round 183. Epsilon: 0.05499999999999999. minPts: 5. Accuracy: 0.282. Data_combo: [[1, 2, 5]]
+correct 167
+incorrect 333
+percentage 0.334
+this was round 184. Epsilon: 0.05499999999999999. minPts: 5. Accuracy: 0.334. Data_combo: [[1, 2, 6]]
+correct 128
+incorrect 372
+percentage 0.256
+this was round 185. Epsilon: 0.05499999999999999. minPts: 5. Accuracy: 0.256. Data_combo: [[1, 3, 4]]
+correct 126
+incorrect 374
+percentage 0.252
+this was round 186. Epsilon: 0.05499999999999999. minPts: 5. Accuracy: 0.252. Data_combo: [[1, 3, 5]]
+correct 171
+incorrect 329
+percentage 0.342
+this was round 187. Epsilon: 0.05499999999999999. minPts: 5. Accuracy: 0.342. Data_combo: [[1, 3, 6]]
+correct 147
+incorrect 353
+percentage 0.294
+this was round 188. Epsilon: 0.05499999999999999. minPts: 5. Accuracy: 0.294. Data_combo: [[1, 4, 5]]
+correct 179
+incorrect 321
+percentage 0.358
+this was round 189. Epsilon: 0.05499999999999999. minPts: 5. Accuracy: 0.358. Data_combo: [[1, 4, 6]]
+correct 157
+incorrect 343
+percentage 0.314
+this was round 190. Epsilon: 0.05499999999999999. minPts: 5. Accuracy: 0.314. Data_combo: [[1, 5, 6]]
+correct 134
+incorrect 366
+percentage 0.268
+this was round 191. Epsilon: 0.05499999999999999. minPts: 5. Accuracy: 0.268. Data_combo: [[2, 3, 4]]
+correct 142
+incorrect 358
+percentage 0.284
+this was round 192. Epsilon: 0.05499999999999999. minPts: 5. Accuracy: 0.284. Data_combo: [[2, 3, 5]]
+correct 174
+incorrect 326
+percentage 0.348
+this was round 193. Epsilon: 0.05499999999999999. minPts: 5. Accuracy: 0.348. Data_combo: [[2, 3, 6]]
+correct 137
+incorrect 363
+percentage 0.274
+this was round 194. Epsilon: 0.05499999999999999. minPts: 5. Accuracy: 0.274. Data_combo: [[2, 4, 5]]
+correct 143
+incorrect 357
+percentage 0.286
+this was round 195. Epsilon: 0.05499999999999999. minPts: 5. Accuracy: 0.286. Data_combo: [[2, 4, 6]]
+correct 135
+incorrect 365
+percentage 0.27
+this was round 196. Epsilon: 0.05499999999999999. minPts: 5. Accuracy: 0.27. Data_combo: [[2, 5, 6]]
+correct 154
+incorrect 346
+percentage 0.308
+this was round 197. Epsilon: 0.05499999999999999. minPts: 5. Accuracy: 0.308. Data_combo: [[3, 4, 5]]
+correct 172
+incorrect 328
+percentage 0.344
+this was round 198. Epsilon: 0.05499999999999999. minPts: 5. Accuracy: 0.344. Data_combo: [[3, 4, 6]]
+correct 172
+incorrect 328
+percentage 0.344
+this was round 199. Epsilon: 0.05499999999999999. minPts: 5. Accuracy: 0.344. Data_combo: [[3, 5, 6]]
+correct 139
+incorrect 361
+percentage 0.278
+this was round 200. Epsilon: 0.05499999999999999. minPts: 5. Accuracy: 0.278. Data_combo: [[4, 5, 6]]
+correct 129
+incorrect 371
+percentage 0.258
+this was round 201. Epsilon: 0.05499999999999999. minPts: 7. Accuracy: 0.258. Data_combo: [[1, 2, 3]]
+correct 131
+incorrect 369
+percentage 0.262
+this was round 202. Epsilon: 0.05499999999999999. minPts: 7. Accuracy: 0.262. Data_combo: [[1, 2, 4]]
+correct 144
+incorrect 356
+percentage 0.288
+this was round 203. Epsilon: 0.05499999999999999. minPts: 7. Accuracy: 0.288. Data_combo: [[1, 2, 5]]
+correct 168
+incorrect 332
+percentage 0.336
+this was round 204. Epsilon: 0.05499999999999999. minPts: 7. Accuracy: 0.336. Data_combo: [[1, 2, 6]]
+correct 128
+incorrect 372
+percentage 0.256
+this was round 205. Epsilon: 0.05499999999999999. minPts: 7. Accuracy: 0.256. Data_combo: [[1, 3, 4]]
+correct 133
+incorrect 367
+percentage 0.266
+this was round 206. Epsilon: 0.05499999999999999. minPts: 7. Accuracy: 0.266. Data_combo: [[1, 3, 5]]
+correct 178
+incorrect 322
+percentage 0.356
+this was round 207. Epsilon: 0.05499999999999999. minPts: 7. Accuracy: 0.356. Data_combo: [[1, 3, 6]]
+correct 149
+incorrect 351
+percentage 0.298
+this was round 208. Epsilon: 0.05499999999999999. minPts: 7. Accuracy: 0.298. Data_combo: [[1, 4, 5]]
+correct 170
+incorrect 330
+percentage 0.34
+this was round 209. Epsilon: 0.05499999999999999. minPts: 7. Accuracy: 0.34. Data_combo: [[1, 4, 6]]
+correct 166
+incorrect 334
+percentage 0.332
+this was round 210. Epsilon: 0.05499999999999999. minPts: 7. Accuracy: 0.332. Data_combo: [[1, 5, 6]]
+correct 136
+incorrect 364
+percentage 0.272
+this was round 211. Epsilon: 0.05499999999999999. minPts: 7. Accuracy: 0.272. Data_combo: [[2, 3, 4]]
+correct 142
+incorrect 358
+percentage 0.284
+this was round 212. Epsilon: 0.05499999999999999. minPts: 7. Accuracy: 0.284. Data_combo: [[2, 3, 5]]
+correct 177
+incorrect 323
+percentage 0.354
+this was round 213. Epsilon: 0.05499999999999999. minPts: 7. Accuracy: 0.354. Data_combo: [[2, 3, 6]]
+correct 138
+incorrect 362
+percentage 0.276
+this was round 214. Epsilon: 0.05499999999999999. minPts: 7. Accuracy: 0.276. Data_combo: [[2, 4, 5]]
+correct 141
+incorrect 359
+percentage 0.282
+this was round 215. Epsilon: 0.05499999999999999. minPts: 7. Accuracy: 0.282. Data_combo: [[2, 4, 6]]
+correct 138
+incorrect 362
+percentage 0.276
+this was round 216. Epsilon: 0.05499999999999999. minPts: 7. Accuracy: 0.276. Data_combo: [[2, 5, 6]]
+correct 160
+incorrect 340
+percentage 0.32
+this was round 217. Epsilon: 0.05499999999999999. minPts: 7. Accuracy: 0.32. Data_combo: [[3, 4, 5]]
+correct 197
+incorrect 303
+percentage 0.394
+this was round 218. Epsilon: 0.05499999999999999. minPts: 7. Accuracy: 0.394. Data_combo: [[3, 4, 6]]
+correct 183
+incorrect 317
+percentage 0.366
+this was round 219. Epsilon: 0.05499999999999999. minPts: 7. Accuracy: 0.366. Data_combo: [[3, 5, 6]]
+correct 164
+incorrect 336
+percentage 0.328
+this was round 220. Epsilon: 0.05499999999999999. minPts: 7. Accuracy: 0.328. Data_combo: [[4, 5, 6]]
+correct 126
+incorrect 374
+percentage 0.252
+this was round 221. Epsilon: 0.05499999999999999. minPts: 9. Accuracy: 0.252. Data_combo: [[1, 2, 3]]
+correct 133
+incorrect 367
+percentage 0.266
+this was round 222. Epsilon: 0.05499999999999999. minPts: 9. Accuracy: 0.266. Data_combo: [[1, 2, 4]]
+correct 142
+incorrect 358
+percentage 0.284
+this was round 223. Epsilon: 0.05499999999999999. minPts: 9. Accuracy: 0.284. Data_combo: [[1, 2, 5]]
+correct 175
+incorrect 325
+percentage 0.35
+this was round 224. Epsilon: 0.05499999999999999. minPts: 9. Accuracy: 0.35. Data_combo: [[1, 2, 6]]
+correct 134
+incorrect 366
+percentage 0.268
+this was round 225. Epsilon: 0.05499999999999999. minPts: 9. Accuracy: 0.268. Data_combo: [[1, 3, 4]]
+correct 130
+incorrect 370
+percentage 0.26
+this was round 226. Epsilon: 0.05499999999999999. minPts: 9. Accuracy: 0.26. Data_combo: [[1, 3, 5]]
+correct 193
+incorrect 307
+percentage 0.386
+this was round 227. Epsilon: 0.05499999999999999. minPts: 9. Accuracy: 0.386. Data_combo: [[1, 3, 6]]
+correct 152
+incorrect 348
+percentage 0.304
+this was round 228. Epsilon: 0.05499999999999999. minPts: 9. Accuracy: 0.304. Data_combo: [[1, 4, 5]]
+correct 195
+incorrect 305
+percentage 0.39
+this was round 229. Epsilon: 0.05499999999999999. minPts: 9. Accuracy: 0.39. Data_combo: [[1, 4, 6]]
+correct 170
+incorrect 330
+percentage 0.34
+this was round 230. Epsilon: 0.05499999999999999. minPts: 9. Accuracy: 0.34. Data_combo: [[1, 5, 6]]
+correct 136
+incorrect 364
+percentage 0.272
+this was round 231. Epsilon: 0.05499999999999999. minPts: 9. Accuracy: 0.272. Data_combo: [[2, 3, 4]]
+correct 144
+incorrect 356
+percentage 0.288
+this was round 232. Epsilon: 0.05499999999999999. minPts: 9. Accuracy: 0.288. Data_combo: [[2, 3, 5]]
+correct 192
+incorrect 308
+percentage 0.384
+this was round 233. Epsilon: 0.05499999999999999. minPts: 9. Accuracy: 0.384. Data_combo: [[2, 3, 6]]
+correct 137
+incorrect 363
+percentage 0.274
+this was round 234. Epsilon: 0.05499999999999999. minPts: 9. Accuracy: 0.274. Data_combo: [[2, 4, 5]]
+correct 166
+incorrect 334
+percentage 0.332
+this was round 235. Epsilon: 0.05499999999999999. minPts: 9. Accuracy: 0.332. Data_combo: [[2, 4, 6]]
+correct 135
+incorrect 365
+percentage 0.27
+this was round 236. Epsilon: 0.05499999999999999. minPts: 9. Accuracy: 0.27. Data_combo: [[2, 5, 6]]
+correct 160
+incorrect 340
+percentage 0.32
+this was round 237. Epsilon: 0.05499999999999999. minPts: 9. Accuracy: 0.32. Data_combo: [[3, 4, 5]]
+correct 195
+incorrect 305
+percentage 0.39
+this was round 238. Epsilon: 0.05499999999999999. minPts: 9. Accuracy: 0.39. Data_combo: [[3, 4, 6]]
+correct 176
+incorrect 324
+percentage 0.352
+this was round 239. Epsilon: 0.05499999999999999. minPts: 9. Accuracy: 0.352. Data_combo: [[3, 5, 6]]
+correct 176
+incorrect 324
+percentage 0.352
+this was round 240. Epsilon: 0.05499999999999999. minPts: 9. Accuracy: 0.352. Data_combo: [[4, 5, 6]]
