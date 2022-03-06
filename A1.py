@@ -62,16 +62,14 @@ def visualizePC(pointCloudDirectory, pc):
     cloud = currento3dPCfile(pointCloudDirectory, pc)
     o3d.visualization.draw_geometries([cloud])
 
-#current o3d point cloud
+#current o3d point cloud gets the file for open3d to use in visualizations
 def currento3dPCfile(pc):
-    ## update to all point clouds when testing is done
-    
-    #number = "001"
+
     number = "00" + str(pc)
     three_digit = number[-3:] 
     filewd = os.getcwd()
     folder = "{0}\{1}.xyz".format(filewd, three_digit)
-    #print(folder)
+
     currentPointCloud = o3d.io.read_point_cloud(folder)
     return currentPointCloud
 
@@ -81,37 +79,23 @@ def allObjectProperties(pointCloudDirectory):
     object_features = []
     print('Evaluating point cloud features')
     for pc in pointCloudDirectory:
-        ###print ('now working on point cloud', str(pc), end="\r")
+        print ('now working on point cloud', str(pc), end="\r")
         #Get current point cloud
         currentPointCloud = currentPC(pointCloudDirectory, pc)
         currentPointCloud_o3d = currento3dPCfile(pc)
 
-        #Get properties by calling related function
+        #Get properties by calling related function, only getting 3 best features after analysis of all features
         height = objectHeight(currentPointCloud)
-        volume = convexHull(currentPointCloud_o3d)
+        #volume = convexHull(currentPointCloud_o3d)
         avg_height = objectAverageHeight(currentPointCloud)
-        area, ratio = areaBase(currentPointCloud_o3d)
+        #area, ratio = areaBase(currentPointCloud_o3d)
         num_planes = planarityPC(currentPointCloud_o3d)
+
+        #object_features.append([i, height, volume, avg_height, area, ratio, num_planes])
+        object_features.append([i, height, avg_height, num_planes])
         
-
-        #remove at end, for testing only
-        if i >=500: break
-
-        object_features.append([i, height, volume, avg_height, area, ratio, num_planes])
         i += 1
         #print(str(i) + " height: " + str(height) + " volume: " + str(volume) + " area: " + str(area) + " num planes: " + str(num_planes))
-    
-    #print('features length', len(object_features))
-
-    cwd = os.getcwd()
-    filewd = (cwd[: len(cwd) - 11])
-    #print('file wd' + filewd)
-    save_features = filewd + 'features.txt'
-
-    with open (save_features, 'w') as f:
-        for i in range((len(object_features))):
-            f.write(str(object_features[i]) + "\n")
-    f.close()
 
     return object_features
 
@@ -123,7 +107,7 @@ def currentPC(pointCloudDirectory, pc):
     currentPointCloud = pointCloudDirectory[name]
     return currentPointCloud
 
-#normalize features
+#normalize  to put into range from 0 to 1
 def normalize_features(object_features):
     print('Normalizing point cloud features')
     all_normalized_features = np.copy(object_features)
@@ -133,7 +117,6 @@ def normalize_features(object_features):
         max = np.max(normalized_feature)
         normalized_feature = normalized_feature / max
         all_normalized_features[:,i] = normalized_feature
-    #print(all_normalized_features)
     return all_normalized_features
 
 #Get feature 1: Height
@@ -146,26 +129,22 @@ def objectHeight(currentPointCloud):
         #maxZ now largest Z
 
     height = maxZ
-    #print(height)
     return height
 
 #Feature 2: Convex hull for Volume
 def convexHull(pc):
     convhull, _ = pc.compute_convex_hull()
-    #print('convhull', convhull)
     convhull_lns = o3d.geometry.LineSet.create_from_triangle_mesh(convhull)
     convhull_lns.paint_uniform_color((0, 0, 1))
+
     #visualize convex hull
     #o3d.visualization.draw_geometries([pc, convhull_lns])
     
     volume = convhull.get_volume()
-    #print(volume)
     return volume
 
 #Feature 3: planarity
 def planarityPC(pc):
-    #downsample point cloud with open3d to reduce number of points
-    #downsampledpc = pc.voxel_down_sample(voxel_size=0.25)
     allpoints = pc
     numplanes = 0
     #get planes with o3d segment_plane
@@ -188,26 +167,20 @@ def planarityPC(pc):
         plane_model, inliers = allpoints.segment_plane(distance_threshold=0.1,ransac_n=3, num_iterations=n)
 
         inlier_cloud = allpoints.select_by_index(inliers)
-        inlier_cloud.paint_uniform_color([1.0, 0, 0])
-        #o3d.visualization.draw_geometries([inlier_cloud])
-        #print('inlier cloud', inlier_cloud)
-        #print("pcarray", inliers)
+
+
         for item in range(len(np.asarray(allpoints.points))):
             if item in inliers:
-                #print('in list', item)
                 continue
             else:
                 indexes.append(item)
-        #print('indexes', indexes)
 
         allpoints = allpoints.select_by_index(indexes)
-
-        #test for buildings vs other objects
-        #if len(inliers) > .2 * len(pcarray):
         numplanes += 1
 
-        #print('inliers', inliers)
-        allpoints.paint_uniform_color([0, 0, 1])
+        #visualize planes
+        #inlier_cloud.paint_uniform_color([1.0, 0, 0])
+        #allpoints.paint_uniform_color([0, 0, 1])
         #o3d.visualization.draw_geometries([allpoints, inlier_cloud])
 
     return numplanes
@@ -219,7 +192,7 @@ def objectAverageHeight(currentPointCloud):
     allHeights = npCurrentPointCloud[:,2]
 
     averageHeight = sum(allHeights) / len(allHeights)
-    #print(averageHeight)
+
     return averageHeight
 
 #Get feature 5: Area of plan view
@@ -237,9 +210,12 @@ def areaBase(pc):
     ratio = length / width
     
     bBox.color = (0, 0, 1)
+
+    #visualize bounding box
     #o3d.visualization.draw_geometries([pc, bBox])
     return area, ratio
 
+#function we had used for checking all possible combinations of three features, not used in final assignment
 def get_best_features(normalized_object_features):
     feature_combos = [[1, 2, 3],
     [1, 2, 4],
@@ -280,16 +256,6 @@ def get_best_features(normalized_object_features):
         print('\n\n')
         print('===========================')
 
-        # cwd = os.getcwd()
-        # filewd = (cwd[: len(cwd) - 11])
-        # #print('file wd' + filewd)
-        # save_features = filewd + 'featureacuracy.txt'
-
-        # with open (save_features, 'w') as f:
-        #     for i in range((len(object_features))):
-        #         f.write(str(object_features[i]) + "\n")
-        # f.close()
-
 
 #Main
 if __name__ == "__main__":
@@ -297,26 +263,27 @@ if __name__ == "__main__":
     object_features = np.array(allObjectProperties(pointCloudDirectory))
     normalized_object_features = normalize_features(object_features)
 
-    feature_indexs = range(1, len(normalized_object_features))
-
+    #not used in final assignment, function to get best features
     #get_best_features(normalized_object_features)
 
-    # Hierarchical compare_clusters(data, height to cut dendograph at)
-    hc.compare_clusters(normalized_object_features, -4)  
+    feature_indexes = range(1, len(normalized_object_features[0]))
 
-    #temp data generation
-    #pointcloudsdummy = np.random.randn(800).reshape((100,8))
+    # Hierarchical compare_clusters(data, height to cut dendograph at (one less than number of clusters))
+    npFeatureList, cut_link, cluster_table, height, title = hc.compare_clusters(normalized_object_features, -4)  
 
     # DBSCAN - dbscan(data, [features from data], epsilon(radius distance), min number of points in cluster)
-    cluster, dataConsidered = DBSCAN.dbscan(normalized_object_features, feature_indexs, 1.3, 3)
+    cluster, dataConsidered = DBSCAN.dbscan(normalized_object_features, feature_indexes, 1.3, 3)
     print('DBSCAN accuracy')
     cc.cluster_accuracy(cluster)
 
 
     # K-means - kMeans(data, k-clusters, [features from dataset])
-    cluster2, centroids, dataConsidered = KMeans.kMeans(normalized_object_features, 5, feature_indexs)
+    cluster2, centroids, dataConsidered = KMeans.kMeans(normalized_object_features, 5, feature_indexes)
     print('k-means accuracy')
     cc.cluster_accuracy(cluster2)
 
-    #show graph of each one
-    #print "this method was most accurate"
+
+    hc.visualize_hierarchy(npFeatureList, cut_link, cluster_table, height)
+    print(title + 'Hierarchical Clustering Visualized')
+
+
