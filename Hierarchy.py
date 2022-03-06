@@ -292,15 +292,12 @@ def compare_clusters(npFeatureList, height):
 
     if max_id == 0:
         #visualize_hierarchy(npFeatureList, cut_single_link, sl_cluster_table, height)
-        print('Single-Link Hierarchical Clustering Visualized')
         return npFeatureList, cut_single_link, sl_cluster_table, height, 'Single-Link'
     elif max_id == 1:
         #visualize_hierarchy(npFeatureList, cut_avg_link, avg_cluster_table, height)
-        print('Average-Link Hierarchical Clustering Visualized')
         return npFeatureList, cut_avg_link, avg_cluster_table, height, 'Average-Link'
     elif max_id == 2:
         #visualize_hierarchy(npFeatureList, cut_comp_link, compl_cluster_table, height)
-        print('Complete-Link Hierarchical Clustering Visualized')
         return npFeatureList, cut_comp_link, compl_cluster_table, height, 'Complete-Link'
 
 #color code points based on which cluster they are in

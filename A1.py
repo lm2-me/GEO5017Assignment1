@@ -2,12 +2,9 @@
 ''' git status, git add ., git commit -m "comment about update", git push. --> git pull'''
 
 #Import Point Cloud
-import pandas as pd
 import numpy as np
-import pyoctree as poct
 import open3d as o3d
 import math as m
-import copy
 
 import Hierarchy as hc
 import ClusterComparing as cc
@@ -58,8 +55,8 @@ def importFiles():
     return d
 
 #visualize point cloud
-def visualizePC(pointCloudDirectory, pc):
-    cloud = currento3dPCfile(pointCloudDirectory, pc)
+def visualizePC(pc):
+    cloud = currento3dPCfile(pc)
     o3d.visualization.draw_geometries([cloud])
 
 #current o3d point cloud gets the file for open3d to use in visualizations
@@ -84,6 +81,9 @@ def allObjectProperties(pointCloudDirectory):
         currentPointCloud = currentPC(pointCloudDirectory, pc)
         currentPointCloud_o3d = currento3dPCfile(pc)
 
+        #Visualize Point Cloud
+        #visualizePC(pc)
+
         #Get properties by calling related function, only getting 3 best features after analysis of all features
         height = objectHeight(currentPointCloud)
         #volume = convexHull(currentPointCloud_o3d)
@@ -95,7 +95,7 @@ def allObjectProperties(pointCloudDirectory):
         object_features.append([i, height, avg_height, num_planes])
         
         i += 1
-        #print(str(i) + " height: " + str(height) + " volume: " + str(volume) + " area: " + str(area) + " num planes: " + str(num_planes))
+        #print(str(i) + " height: " + str(height) + " volume: " + str(volume) + " average height: " + str(avg_height) + " area: " + str(area) + " ratio: " + str(ratio) + " num planes: " + str(num_planes))
 
     return object_features
 
@@ -282,8 +282,8 @@ if __name__ == "__main__":
     print('k-means accuracy')
     cc.cluster_accuracy(cluster2)
 
-
-    hc.visualize_hierarchy(npFeatureList, cut_link, cluster_table, height)
-    print(title + 'Hierarchical Clustering Visualized')
+    #Visualizations
+    #hc.visualize_hierarchy(npFeatureList, cut_link, cluster_table, height)
+    #print(title + 'Hierarchical Clustering Visualized')
 
 
